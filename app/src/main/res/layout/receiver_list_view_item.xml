@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/receiverName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/deleteReceiver"
+            android:autoText="false"
+            android:gravity="left"
+            android:text="RECEIVER NAME"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_alignBottom="@+id/deleteReceiver" />
+
+        <TextView
+            android:id="@+id/receiverNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:autoText="false"
+            android:gravity="left"
+            android:text="RECEIVER NUMBER"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignBottom="@+id/receiverName"
+            android:layout_alignParentLeft="true" />
+
+        <ImageButton
+            android:id="@+id/deleteReceiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right"
+            android:onClick="remove"
+            android:src="@drawable/ic_action_remove" />
+    </RelativeLayout>
+
+
+</LinearLayout>

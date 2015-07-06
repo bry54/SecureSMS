@@ -2,17 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.securesms.MainActivity" >
 	<item
-        android:id="@+id/new_message"
+        android:id="@+id/action_new_message"
         android:icon="@drawable/ic_action_new_email"
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="@string/new_message"/>
 	<item
-        android:id="@+id/new_receiver"
+        android:id="@+id/action_contacts"
         android:icon="@drawable/ic_action_add_person"
         android:orderInCategory="100"
         android:showAsAction="collapseActionView"
-        android:title="@string/new_receiver"/>
+        android:title="@string/contacts"/>
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_settings"

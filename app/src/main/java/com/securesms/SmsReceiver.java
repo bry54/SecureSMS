@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.securesms.items.MessageItem;
@@ -29,25 +30,22 @@ public class SmsReceiver extends BroadcastReceiver {
 			{
 				msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
 				messageReceived += msgs[i].getMessageBody().toString();
-				messageReceived += "\n";
 			}
 
 			// ---display the new SMS message---
-			Toast.makeText(context, messageReceived + "dziala!!!!!!",
-					Toast.LENGTH_SHORT).show();
 
 			String senderPhoneNumber = msgs[0].getOriginatingAddress();
 			// add message to db
 			DbAdapter dbHelper = new DbAdapter(context);
 			dbHelper.open();
 			
-			ReceiverItem receiver_item = dbHelper.searchRowReceiverNumber(senderPhoneNumber);
+			ReceiverItem receiver_item = dbHelper.searchRowReceiverNumber(senderPhoneNumber.substring(3));
 			MessageItem tmp = new MessageItem();
 			tmp.text = messageReceived;
-
+			tmp.rec = 0;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			tmp.date = sdf.format(new Date());
-			tmp.id_receivers=1;
+			tmp.id_receivers=receiver_item.id;
 			
 			dbHelper.createRowMessage(tmp);
 			dbHelper.close();

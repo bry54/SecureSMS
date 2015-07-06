@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/receiverName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:gravity="left"
+            android:text="RECEIVER NAME"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/receiverNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoText="false"
+            android:gravity="left"
+            android:text="RECEIVER NUMBER"
+
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@+id/receiverName"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.securesms;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
 	private DbAdapter dbHelper;
 	private SimpleCursorAdapter dataAdapter;
@@ -24,7 +25,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_list_view);
 		dbHelper = new DbAdapter(this);
-		dbHelper.open();
 		displayListView();
 
     }
@@ -44,26 +44,44 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            return true;
+			Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+			startActivity(intent);
         }
-        if (id == R.id.new_receiver)
+        if (id == R.id.action_contacts)
         {
-        	Intent intent = new Intent(getApplicationContext(), AddReceiver.class);
+        	Intent intent = new Intent(getApplicationContext(), ReceiversActivity.class);
         	startActivity(intent);
 			
         }
-        if (id == R.id.new_message)
+        if (id == R.id.action_new_message)
         {
-        	Intent intent = new Intent(getApplicationContext(), AddMessage.class);
+        	Intent intent = new Intent(getApplicationContext(), NewMessageActivity.class);
         	startActivity(intent);
 			
         }
         return super.onOptionsItemSelected(item);
     }
+	@Override
+	protected void onListItemClick(ListView list, View view, int position, long id) {
+		Cursor cursor = (Cursor) list.getItemAtPosition(position);
+
+		// Get the state's capital from this row in the database.
+		int recId = cursor.getInt(cursor
+				.getColumnIndexOrThrow("mes_rec_id"));
+		String nick = cursor.getString(cursor
+				.getColumnIndexOrThrow("rec_name"));
+		String number = cursor.getString(cursor
+				.getColumnIndexOrThrow("rec_number"));
+		Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+		intent.putExtra("recId",recId);
+		intent.putExtra("nick", nick);
+		intent.putExtra("number", number);
+		startActivity(intent);
+	}
     private void displayListView() {
-
+		dbHelper.open();
 		Cursor cursor = dbHelper.readListMainMessages();
-
+		dbHelper.close();
 		// The desired columns to be bound
 		String[] columns = new String[] { DbAdapter.REC_NAME ,DbAdapter.MES_DATE};
 
@@ -75,27 +93,8 @@ public class MainActivity extends Activity {
 		dataAdapter = new SimpleCursorAdapter(this, R.layout.main_list_view_item,
 				cursor, columns, to, 0);
 
-		ListView listView = (ListView) findViewById(R.id.listView);
 		// Assign adapter to ListView
-		listView.setAdapter(dataAdapter);
-
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> listView, View view,
-					int position, long id) {
-				// Get the cursor, positioned to the corresponding row in the
-				// result set
-				Cursor cursor = (Cursor) listView.getItemAtPosition(position);
-
-				// Get the state's capital from this row in the database.
-				String countryCode = cursor.getString(cursor
-						.getColumnIndexOrThrow("code"));
-				Toast.makeText(getApplicationContext(), countryCode,
-						Toast.LENGTH_SHORT).show();
-				//Toast.makeText(getApplicationContext(), "dziala!",Toast.LENGTH_LONG).show();
-
-			}
-		});
+		setListAdapter(dataAdapter);
 
 	}
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/message_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Numer telefonu"
+        android:inputType="phone"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/show_contacts" />
+
+    <ImageButton
+        android:id="@+id/show_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="selectReceive"
+        android:src="@drawable/ic_action_new"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+
+    <EditText
+        android:id="@+id/message_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Wiadomosc"
+        android:inputType="textImeMultiLine"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/send_message" />
+
+    <ImageButton
+        android:id="@+id/send_message"
+        android:onClick="send_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_action_send_now"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>
