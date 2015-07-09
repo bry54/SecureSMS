@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:hint="Numer telefonu"
+        android:hint="@string/phone_number"
         android:inputType="phone"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/show_contacts" />
@@ -30,8 +30,8 @@
         android:id="@+id/message_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Wiadomosc"
+        android:maxLength="100"
+        android:hint="@string/message"
         android:inputType="textImeMultiLine"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/send_message" />

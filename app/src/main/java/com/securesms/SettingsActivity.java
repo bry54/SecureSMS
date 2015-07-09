@@ -2,13 +2,10 @@ package com.securesms;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 
 /**
- * Created by admin on 2015-07-06.
+ * Created by Sebastian Soko³owski on 2015-07-06.
  */
 public class SettingsActivity extends PreferenceActivity {
 

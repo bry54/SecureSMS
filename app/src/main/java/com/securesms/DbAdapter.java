@@ -61,6 +61,7 @@ public class DbAdapter {
             + " INTEGER,"
             + MES_READ
             + " INTEGER);";
+
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         DatabaseHelper(Context context) {
@@ -157,6 +158,20 @@ public class DbAdapter {
         return wynik;
     }
 
+    public boolean isReadMessageReceiver(int id) {
+        boolean wynik = true;
+        String[] allColumns = new String[]{MES_REC_ID, MES_READ};
+        Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + " = ? AND " + MES_READ + " = ?",
+                new String[]{id + "", 1 + ""}, null, null, null);
+        if (c != null && c.moveToFirst()) {
+            if (c.getCount() != 0) {
+                wynik = false;
+            }
+            c.close();
+        }
+        return wynik;
+    }
+
     // zadania do tabeli Receiver
     public long createRowMessage(MessageItem t) {
         ContentValues initialValues = new ContentValues();
@@ -167,13 +182,15 @@ public class DbAdapter {
         initialValues.put(MES_READ, t.read);
         return db.insert(SQLLITE_TABLE_MESSAGES, null, initialValues);
     }
+
     // zadania do tabeli Receiver
-    public long setReadMessage(int id) {
+    public long setReadMessages(long id) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(MES_READ, 0);
-        return db.update(SQLLITE_TABLE_MESSAGES, initialValues, MES_ID + " =?",
-                new String[]{id + ""});
+        return db.update(SQLLITE_TABLE_MESSAGES, initialValues, MES_REC_ID + " =? AND " +MES_READ +" =?",
+                new String[]{id + "",1+""});
     }
+
     public long deleteRowMessage(MessageItem t) {
         return db.delete(SQLLITE_TABLE_MESSAGES, REC_ID + " =?",
                 new String[]{t.id + ""});
@@ -198,20 +215,19 @@ public class DbAdapter {
                 new String[]{id + ""}, null, null, null);
         if (c != null && c.moveToFirst()) {
             wynik = new MessageItem(c.getInt(0), c.getInt(1), c.getString(2),
-                    c.getString(3), c.getInt(4),c.getInt(5));
+                    c.getString(3), c.getInt(4), c.getInt(5));
             c.close();
         }
 
         return wynik;
     }
 
-    public Cursor searchRowMessageRec(int id) {
+    public Cursor searchRowMessageRec(long id) {
         String[] allColumns = new String[]{MES_ID, MES_TEXT, MES_DATE, MES_REC};
         Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + "= ?", new String[]{id + ""}, null,
                 null, MES_DATE);
         if (c != null) {
             c.moveToFirst();
-        } else {
         }
         return c;
     }
@@ -221,18 +237,16 @@ public class DbAdapter {
         Cursor c = db.rawQuery(query, null);
         if (c != null) {
             c.moveToFirst();
-        } else {
         }
         return c;
     }
 
     public Cursor readListReceivers() {
-        String[] allColumns = new String[]{REC_ID, REC_NAME, REC_NUMBER};
+        String[] allColumns = new String[]{REC_ID, REC_NAME, REC_NUMBER, REC_CODE};
         Cursor c = db.query(SQLLITE_TABLE_RECEIVERS, allColumns, null, null, null,
                 null, null);
         if (c != null) {
             c.moveToFirst();
-        } else {
         }
         return c;
     }
@@ -243,7 +257,6 @@ public class DbAdapter {
                 null, MES_DATE);
         if (c != null) {
             c.moveToFirst();
-        } else {
         }
         return c;
     }

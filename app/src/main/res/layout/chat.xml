@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Wiadomosc"
+        android:maxLength="100"
         android:inputType="textImeMultiLine"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/send_message" />
@@ -29,6 +30,8 @@
         android:layout_height="wrap_content"
         android:id="@android:id/list"
         android:choiceMode="none"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_above="@+id/message_text" />

@@ -16,39 +16,45 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_action_add_person=0x7f020000;
-        public static final int ic_action_new=0x7f020001;
-        public static final int ic_action_new_email=0x7f020002;
-        public static final int ic_action_read=0x7f020003;
-        public static final int ic_action_remove=0x7f020004;
-        public static final int ic_action_send_now=0x7f020005;
-        public static final int ic_action_settings=0x7f020006;
-        public static final int ic_action_unread=0x7f020007;
-        public static final int ic_launcher=0x7f020008;
-        public static final int message_receiver_text_view=0x7f020009;
-        public static final int message_sender_text_view=0x7f02000a;
+        public static final int ic_action_edit=0x7f020001;
+        public static final int ic_action_new=0x7f020002;
+        public static final int ic_action_new_email=0x7f020003;
+        public static final int ic_action_person=0x7f020004;
+        public static final int ic_action_read=0x7f020005;
+        public static final int ic_action_remove=0x7f020006;
+        public static final int ic_action_send_now=0x7f020007;
+        public static final int ic_action_settings=0x7f020008;
+        public static final int ic_action_unread=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int message_receiver_text_view=0x7f02000b;
+        public static final int message_sender_text_view=0x7f02000c;
     }
     public static final class id {
-        public static final int action_contacts=0x7f080015;
-        public static final int action_new_message=0x7f080014;
-        public static final int action_settings=0x7f080016;
-        public static final int button=0x7f080012;
-        public static final int buttonReceiveAdd=0x7f08000e;
-        public static final int checkBox=0x7f080011;
-        public static final int deleteReceiver=0x7f08000f;
+        public static final int action_contacts=0x7f080019;
+        public static final int action_new_message=0x7f080018;
+        public static final int action_settings=0x7f08001a;
+        public static final int button=0x7f080015;
+        public static final int buttonReceiveAdd=0x7f08000f;
+        public static final int deleteReceiver=0x7f080010;
+        public static final int editReceiver=0x7f080012;
         public static final int editTextNick=0x7f08000b;
-        public static final int editTextNumber=0x7f08000d;
-        public static final int editTextPassword=0x7f08000c;
-        public static final int imageView=0x7f080005;
+        public static final int editTextNumber=0x7f08000e;
+        public static final int editTextPassword=0x7f08000d;
+        public static final int imageButtonContacs=0x7f08000c;
+        public static final int iv_is_read=0x7f080005;
         public static final int message=0x7f080002;
         public static final int message_date=0x7f080003;
         public static final int message_number=0x7f080006;
         public static final int message_text=0x7f080000;
         public static final int receiverMessage=0x7f080009;
         public static final int receiverName=0x7f080008;
-        public static final int receiverNumber=0x7f080010;
+        public static final int receiverNumber=0x7f080011;
+        public static final int receiverPassword=0x7f080013;
         public static final int receiver_name=0x7f080004;
-        public static final int remove_message=0x7f080013;
+        public static final int remove_message=0x7f080017;
         public static final int send_message=0x7f080001;
+        public static final int showMessage=0x7f080016;
+        public static final int showNotyfications=0x7f080014;
         public static final int show_contacts=0x7f080007;
         public static final int textView=0x7f08000a;
     }
@@ -61,11 +67,12 @@ public final class R {
         public static final int message_list_view_item_receive=0x7f030005;
         public static final int message_list_view_item_send=0x7f030006;
         public static final int receiver_add_dialog=0x7f030007;
-        public static final int receiver_list_view=0x7f030008;
-        public static final int receiver_list_view_item=0x7f030009;
-        public static final int select_receiver_list_view=0x7f03000a;
-        public static final int select_receiver_list_view_item=0x7f03000b;
-        public static final int settings=0x7f03000c;
+        public static final int receiver_edit_dialog=0x7f030008;
+        public static final int receiver_list_view=0x7f030009;
+        public static final int receiver_list_view_item=0x7f03000a;
+        public static final int select_receiver_list_view=0x7f03000b;
+        public static final int select_receiver_list_view_item=0x7f03000c;
+        public static final int settings=0x7f03000d;
     }
     public static final class menu {
         public static final int chat_menu=0x7f070000;
@@ -75,14 +82,37 @@ public final class R {
         public static final int action_settings=0x7f060000;
         public static final int add=0x7f060001;
         public static final int add_receiver=0x7f060002;
-        public static final int app_name=0x7f060003;
-        public static final int cancel=0x7f060004;
-        public static final int code=0x7f060005;
-        public static final int contacts=0x7f060006;
-        public static final int new_message=0x7f060007;
-        public static final int nick=0x7f060008;
-        public static final int number=0x7f060009;
-        public static final int remove_receiver=0x7f06000a;
+        public static final int added_receiver=0x7f060003;
+        public static final int app_name=0x7f060004;
+        public static final int cancel=0x7f060005;
+        public static final int change_password=0x7f060006;
+        public static final int code=0x7f060007;
+        public static final int conf_remove_receiver=0x7f060008;
+        public static final int contacts=0x7f060009;
+        public static final int edit_receiver=0x7f06000a;
+        public static final int enable_notifications=0x7f06000b;
+        public static final int error_desc_sms=0x7f06000c;
+        public static final int error_send_sms=0x7f06000d;
+        public static final int message=0x7f06000e;
+        public static final int new_message=0x7f06000f;
+        public static final int nick=0x7f060010;
+        public static final int no_messages=0x7f060011;
+        public static final int no_receives=0x7f060012;
+        public static final int notyfications=0x7f060013;
+        public static final int number=0x7f060014;
+        public static final int password=0x7f060015;
+        public static final int phone_number=0x7f060016;
+        public static final int remove=0x7f060017;
+        public static final int remove_receiver=0x7f060018;
+        public static final int save=0x7f060019;
+        public static final int saved_changes_receiver=0x7f06001a;
+        public static final int select_sound=0x7f06001b;
+        public static final int send_sms=0x7f06001c;
+        public static final int show_message_notifications=0x7f06001d;
+        public static final int sound=0x7f06001e;
+        public static final int title_change_password=0x7f06001f;
+        public static final int vibration=0x7f060020;
+        public static final int yes=0x7f060021;
     }
     public static final class style {
         /**  API 11 theme customizations can go here. 

@@ -6,7 +6,7 @@ public class ReceiverItem {
 
     }
 
-    public ReceiverItem(long int1, String string, String int2,
+    public ReceiverItem(int int1, String string, String int2,
                         String string3) {
         this.id = int1;
         this.name = string;
@@ -17,6 +17,6 @@ public class ReceiverItem {
     public String name;
     public String number;
     public String code;
-    public long id;
+    public int id;
 
 }

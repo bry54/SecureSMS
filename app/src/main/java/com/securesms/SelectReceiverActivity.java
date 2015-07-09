@@ -1,26 +1,22 @@
 package com.securesms;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 import com.securesms.DbAdapter;
 import com.securesms.R;
 
 /**
- * Created by admin on 2015-07-06.
+ * Created by Sebastian Soko³owski on 2015-07-06.
  */
 public class SelectReceiverActivity extends ListActivity {
     private DbAdapter dbHelper;
-    private SimpleCursorAdapter dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +61,7 @@ public class SelectReceiverActivity extends ListActivity {
 
         // create the adapter using the cursor pointing to the desired data
         // as well as the layout information
-        dataAdapter = new SimpleCursorAdapter(this, R.layout.select_receiver_list_view_item,
+        SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(this, R.layout.select_receiver_list_view_item,
                 cursor, columns, to, 0);
         // Assign adapter to ListView
         setListAdapter(dataAdapter);

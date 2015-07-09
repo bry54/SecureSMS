@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">Secure SMS</string>
     <string name="action_settings">Ustawienia</string>
     <string name="new_message">Nowa wiadomość</string>
-	<string name="add_receiver">Dodaj kontakt</string>
-	<string name="remove_receiver">Usun kontakt</string>
-	<string name="contacts">Kontakty</string>
-	<string name="nick">Nick</string>
-	<string name="number">Numer</string>
-	<string name="code">Kod</string>
-	<string name="add">Dodaj</string>
-	<string name="cancel">Anuluj</string>
+    <string name="add_receiver">Dodaj kontakt</string>
+    <string name="remove_receiver">Usuń kontakt</string>
+    <string name="contacts">Kontakty</string>
+    <string name="nick">Nick</string>
+    <string name="number">Numer</string>
+    <string name="code">Kod</string>
+    <string name="add">Dodaj</string>
+    <string name="save">Zapisz</string>
+    <string name="send_sms">Wysłano SMS</string>
+    <string name="conf_remove_receiver">Czy na pewno chcesz usunąć kontakt?</string>
+    <string name="error_send_sms">Błąd wysyłania, spróbuj ponownie później.</string>
+    <string name="error_desc_sms">Bład odszyfrowania wiadomości. Sprawdz czy hasło się zgadza.</string>
+    <string name="added_receiver">Dodano kontakt</string>
+    <string name="yes">Tak</string>
+    <string name="cancel">Anuluj</string>
+    <string name="no_messages">Brak wiadomości</string>
+    <string name="no_receives">Brak kontaktów</string>
+    <string name="message">Wiadomość</string>
+    <string name="phone_number">Numer telefonu</string>
+    <string name="password">Hasło</string>
+    <string name="notyfications">Powiadomienia</string>
+    <string name="enable_notifications">Włącz powiadomienia</string>
+    <string name="change_password">Zmiana hasła</string>
+    <string name="title_change_password">Hasło do szyfrowania wiadomości</string>
+    <string name="show_message_notifications">Pokaż zawartość wiadomości na pasku powiadomień</string>
+    <string name="saved_changes_receiver">Zapisano zmiany</string>
+    <string name="edit_receiver">Edytowanie kontaktu</string>
+    <string name="remove">Usuń</string>
+    <string name="vibration">Wibracje</string>
+    <string name="select_sound">Wybierz dźwięk</string>
+    <string name="sound">Dźwięk</string>
 </resources>

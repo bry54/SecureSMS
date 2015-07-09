@@ -40,8 +40,26 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
-            android:onClick="remove"
             android:src="@drawable/ic_action_remove" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editReceiver"
+            android:src="@drawable/ic_action_edit"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/deleteReceiver" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:visibility="gone"
+            android:id="@+id/receiverPassword"
+            android:layout_below="@+id/receiverName"
+            android:layout_alignParentLeft="true" />
+
     </RelativeLayout>
 
 

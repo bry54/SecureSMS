@@ -8,12 +8,16 @@ import android.support.v4.app.NavUtils;
 import android.telephony.SmsManager;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,14 +29,13 @@ import java.util.Date;
 
 public class ChatActivity extends ListActivity {
     private DbAdapter dbHelper;
-    private SimpleCursorAdapter dataAdapter;
 
     ImageButton btn_send;
     EditText et_message;
     String nick;
     String number;
 
-    int recId;
+    long recId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,18 @@ public class ChatActivity extends ListActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             recId = bundle.getInt("recId");
-            nick=bundle.getString("nick");
-            number=bundle.getString("number");
-            getActionBar().setTitle(nick +"\n"+number);
+            nick = bundle.getString("nick");
+            number = bundle.getString("number");
+            getActionBar().setTitle(nick + "\n" + number);
+
+            //zaznaczenie wiadomoÅ›ci jako odczytanej
+            dbHelper.open();
+            dbHelper.setReadMessages(recId);
+            dbHelper.close();
         }
         displayListView();
+
+
     }
 
     @Override
@@ -67,33 +77,11 @@ public class ChatActivity extends ListActivity {
 
     public void send_message(View v) {
         String message = et_message.getText().toString();
+        AlgoritmAES algoritmAES = new AlgoritmAES();
 
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(number, null, message, null, null);
-            Toast.makeText(getApplicationContext(), "Wys³ano SMS",
-                    Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    "B³¹d wysy³ania, spróbuj ponownie póŸniej", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
-        } finally {
-
-
-            MessageItem tmp = new MessageItem();
-            tmp.text = et_message.getText().toString();
-            tmp.rec = 1;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            tmp.date = sdf.format(new Date());
-            tmp.id_receivers = recId;
-            tmp.read=0;
-
-            dbHelper.open();
-            dbHelper.createRowMessage(tmp);
-            dbHelper.close();
-            et_message.setText("");
-            displayListView();
-        }
+        algoritmAES.send_message(number, message, getApplicationContext());
+        et_message.setText("");
+        displayListView();
     }
 
     private void displayListView() {
@@ -108,33 +96,37 @@ public class ChatActivity extends ListActivity {
 
         // create the adapter using the cursor pointing to the desired data
         // as well as the layout information
-        dataAdapter = new SimpleCursorAdapter(this, R.layout.chat_list_view_item,
-                cursor, columns, to, 0)
-        {
+        SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(this, R.layout.chat_list_view_item,
+                cursor, columns, to, 0) {
             @Override
             public void bindView(final View view, final Context context, Cursor cursor) {
                 super.bindView(view, context, cursor);
-                final Context t = context;
-                final Cursor c = cursor;
 
                 TextView message = (TextView) view.findViewById(R.id.message);
                 TextView date = (TextView) view.findViewById(R.id.message_date);
                 int rec = cursor.getInt(cursor
                         .getColumnIndexOrThrow(DbAdapter.MES_REC));
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)message.getLayoutParams();
+
                 if (rec == 0) {
                     message.setBackgroundResource(R.drawable.message_receiver_text_view);
                     message.setGravity(Gravity.RIGHT);
                     date.setGravity(Gravity.RIGHT);
+
+                    params.setMargins(75, 0, 5, 0); //substitute parameters for left, top, right, bottom
+                    message.setLayoutParams(params);
                 } else {
                     message.setBackgroundResource(R.drawable.
                             message_sender_text_view);
                     message.setGravity(Gravity.LEFT);
                     date.setGravity(Gravity.LEFT);
+
+                    params.setMargins(5, 0, 75, 0); //substitute parameters for left, top, right, bottom
+                    message.setLayoutParams(params);
                 }
 
             }
 
-            ;
         };
         // Assign adapter to ListView
         setListAdapter(dataAdapter);
