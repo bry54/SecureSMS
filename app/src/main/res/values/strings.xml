@@ -6,7 +6,7 @@
     <string name="add_receiver">Dodaj kontakt</string>
     <string name="remove_receiver">Usuń kontakt</string>
     <string name="contacts">Kontakty</string>
-    <string name="nick">Nick</string>
+    <string name="nick">Nazwa</string>
     <string name="number">Numer</string>
     <string name="code">Kod</string>
     <string name="add">Dodaj</string>
@@ -34,4 +34,6 @@
     <string name="vibration">Wibracje</string>
     <string name="select_sound">Wybierz dźwięk</string>
     <string name="sound">Dźwięk</string>
+    <string name="appearance">Wygląd</string>
+    <string name="font_size">Wielkość czcionki</string>
 </resources>

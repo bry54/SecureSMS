@@ -4,17 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.securesms.items.MessageItem;
-import com.securesms.items.ReceiverItem;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.securesms.receiver.SelectReceiverActivity;
 
 public class NewMessageActivity extends Activity {
     DbAdapter dbHelper;

@@ -174,6 +174,17 @@ public class DbAdapter {
         return wynik;
     }
 
+    public int getCountMessageReceiver(int id) {
+        int wynik = 0;
+        String[] allColumns = new String[]{MES_REC_ID, MES_READ};
+        Cursor c = db.rawQuery("select count(*) from " + SQLLITE_TABLE_MESSAGES + " where " + MES_REC_ID + "='" + id + "'", null);
+        if (c != null && c.moveToFirst()) {
+            wynik = c.getInt(0);
+            c.close();
+        }
+        return wynik;
+    }
+
     // zadania do tabeli Receiver
     public long createRowMessage(MessageItem t) {
         ContentValues initialValues = new ContentValues();
@@ -233,17 +244,17 @@ public class DbAdapter {
         }
         return c;
     }
+
     public ArrayList<MessageItem> getRowsMessagesRec(long id) {
         ArrayList<MessageItem> list = new ArrayList<MessageItem>();
         String[] allColumns = new String[]{MES_TEXT, MES_DATE, MES_REC};
         Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + "= ?", new String[]{id + ""}, null,
                 null, MES_DATE);
         if (c != null && c.moveToFirst()) {
-            MessageItem item = new MessageItem(c.getString(0),c.getString(1),c.getInt(2));
+            MessageItem item = new MessageItem(c.getString(0), c.getString(1), c.getInt(2));
             list.add(item);
-            while(c.moveToNext())
-            {
-                item = new MessageItem(c.getString(0),c.getString(1),c.getInt(2));
+            while (c.moveToNext()) {
+                item = new MessageItem(c.getString(0), c.getString(1), c.getInt(2));
                 list.add(item);
             }
         }

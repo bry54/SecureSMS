@@ -1,4 +1,4 @@
-package com.securesms;
+package com.securesms.receiver;
 
 import android.app.ListActivity;
 import android.content.Intent;

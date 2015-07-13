@@ -45,7 +45,7 @@ ADDED from AndroidManifest.xml:15:5
 		ADDED from AndroidManifest.xml:17:9
 	android:theme
 		ADDED from AndroidManifest.xml:19:9
-activity#com.securesms.MainActivity
+activity#com.securesms.main.MainActivity
 ADDED from AndroidManifest.xml:20:9
 	android:label
 		ADDED from AndroidManifest.xml:22:13
@@ -71,15 +71,15 @@ ADDED from AndroidManifest.xml:30:13
 		ADDED from AndroidManifest.xml:31:17
 	android:value
 		ADDED from AndroidManifest.xml:32:17
-activity#com.securesms.ChatActivity
+activity#com.securesms.chat.ChatActivity
 ADDED from AndroidManifest.xml:34:9
 	android:name
 		ADDED from AndroidManifest.xml:34:19
-activity#com.securesms.SelectReceiverActivity
+activity#com.securesms.receiver.SelectReceiverActivity
 ADDED from AndroidManifest.xml:39:9
 	android:name
 		ADDED from AndroidManifest.xml:39:19
-activity#com.securesms.ReceiversActivity
+activity#com.securesms.receiver.ReceiversActivity
 ADDED from AndroidManifest.xml:44:9
 	android:name
 		ADDED from AndroidManifest.xml:44:19

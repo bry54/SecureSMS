@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- From: file:/C:/Users/admin/AndroidstudioProjects/SecureSMS/app/src/main/res/values/array.xml -->
+    <eat-comment/>
+    <string-array name="font_size">
+        <item>Mała</item>
+        <item>Duża</item>
+    </string-array>
+    <string-array name="font_size_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
     <!-- From: file:/C:/Users/admin/AndroidstudioProjects/SecureSMS/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
@@ -11,6 +21,7 @@
     <string name="add_receiver">Dodaj kontakt</string>
     <string name="added_receiver">Dodano kontakt</string>
     <string name="app_name">Secure SMS</string>
+    <string name="appearance">Wygląd</string>
     <string name="cancel">Anuluj</string>
     <string name="change_password">Zmiana hasła</string>
     <string name="code">Kod</string>
@@ -20,9 +31,10 @@
     <string name="enable_notifications">Włącz powiadomienia</string>
     <string name="error_desc_sms">Bład odszyfrowania wiadomości. Sprawdz czy hasło się zgadza.</string>
     <string name="error_send_sms">Błąd wysyłania, spróbuj ponownie później.</string>
+    <string name="font_size">Wielkość czcionki</string>
     <string name="message">Wiadomość</string>
     <string name="new_message">Nowa wiadomość</string>
-    <string name="nick">Nick</string>
+    <string name="nick">Nazwa</string>
     <string name="no_messages">Brak wiadomości</string>
     <string name="no_receives">Brak kontaktów</string>
     <string name="notyfications">Powiadomienia</string>

@@ -46,5 +46,15 @@
             android:ringtoneType="all"
             />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="@string/appearance">
+        <ListPreference
+            android:key="font_size"
+            android:title="@string/font_size"
+            android:entries="@array/font_size"
+            android:defaultValue="1"
+            android:entryValues="@array/font_size_values" />
+        </PreferenceCategory>
 
 </PreferenceScreen>

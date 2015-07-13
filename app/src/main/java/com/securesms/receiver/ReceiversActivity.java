@@ -1,7 +1,6 @@
-package com.securesms;
+package com.securesms.receiver;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
+import com.securesms.DbAdapter;
+import com.securesms.R;
 import com.securesms.items.ReceiverItem;
 
 public class ReceiversActivity extends ListActivity {

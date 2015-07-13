@@ -1,33 +1,21 @@
-package com.securesms;
+package com.securesms.chat;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.telephony.SmsManager;
 import android.view.ContextMenu;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsoluteLayout;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.securesms.AlgoritmAES;
+import com.securesms.DbAdapter;
+import com.securesms.R;
 import com.securesms.items.MessageItem;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ChatActivity extends ListActivity {
     private DbAdapter dbHelper;
