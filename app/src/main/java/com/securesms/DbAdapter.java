@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.securesms.items.MessageItem;
 import com.securesms.items.ReceiverItem;
 
+import java.util.ArrayList;
+
 
 public class DbAdapter {
     public static final String DATABASE_NAME = "data.db";
@@ -187,8 +189,8 @@ public class DbAdapter {
     public long setReadMessages(long id) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(MES_READ, 0);
-        return db.update(SQLLITE_TABLE_MESSAGES, initialValues, MES_REC_ID + " =? AND " +MES_READ +" =?",
-                new String[]{id + "",1+""});
+        return db.update(SQLLITE_TABLE_MESSAGES, initialValues, MES_REC_ID + " =? AND " + MES_READ + " =?",
+                new String[]{id + "", 1 + ""});
     }
 
     public long deleteRowMessage(MessageItem t) {
@@ -230,6 +232,22 @@ public class DbAdapter {
             c.moveToFirst();
         }
         return c;
+    }
+    public ArrayList<MessageItem> getRowsMessagesRec(long id) {
+        ArrayList<MessageItem> list = new ArrayList<MessageItem>();
+        String[] allColumns = new String[]{MES_TEXT, MES_DATE, MES_REC};
+        Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + "= ?", new String[]{id + ""}, null,
+                null, MES_DATE);
+        if (c != null && c.moveToFirst()) {
+            MessageItem item = new MessageItem(c.getString(0),c.getString(1),c.getInt(2));
+            list.add(item);
+            while(c.moveToNext())
+            {
+                item = new MessageItem(c.getString(0),c.getString(1),c.getInt(2));
+                list.add(item);
+            }
+        }
+        return list;
     }
 
     public Cursor readListMainMessages() {

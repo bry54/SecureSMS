@@ -14,8 +14,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.securesms.items.ReceiverItem;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends ListActivity {
@@ -102,6 +107,13 @@ public class MainActivity extends ListActivity {
                 super.bindView(view, context, cursor);
 
                 ImageView image = (ImageView) view.findViewById(R.id.iv_is_read);
+
+//                TextView data = (TextView) view.findViewById(R.id.message_date);
+//                try {
+//                    data.setText(getData(data.getText().toString()));
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
                 int receiverId = cursor.getInt(cursor.getColumnIndex(DbAdapter.MES_REC_ID));
                 dbHelper.open();
                 boolean isRead = dbHelper.isReadMessageReceiver(receiverId);
@@ -116,5 +128,28 @@ public class MainActivity extends ListActivity {
         // Assign adapter to ListView
         setListAdapter(dataAdapter);
 
+    }
+    public String getData(String data) throws ParseException {
+        String wynik="";
+
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf2=new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdf3=new SimpleDateFormat("yyyy-MM-dd");
+
+        wynik = sdf.format(new Date());
+        Date tmp = sdf.parse(data);
+        Date now = new Date();
+
+        //ten sam dzien
+        if(now.getDate()==tmp.getDate())
+        {
+
+            wynik=sdf2.format(data);
+        }
+        else
+        {
+            wynik=sdf3.format(data);
+        }
+        return wynik;
     }
 }

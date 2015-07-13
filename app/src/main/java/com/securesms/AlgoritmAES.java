@@ -29,7 +29,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * Created by Sebastian Soko³owski on 2015-07-08
+ * Created by Sebastian Sokolowski on 2015-07-08
  */
 public class AlgoritmAES {
     private Cipher cipher;

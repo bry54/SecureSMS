@@ -5,7 +5,7 @@ import android.preference.PreferenceActivity;
 import android.support.v4.app.NavUtils;
 
 /**
- * Created by Sebastian Soko³owski on 2015-07-06.
+ * Created by Sebastian Sokolowski on 2015-07-06.
  */
 public class SettingsActivity extends PreferenceActivity {
 

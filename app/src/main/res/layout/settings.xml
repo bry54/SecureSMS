@@ -3,11 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <EditTextPreference
-        android:key="password"
-        android:summary="@string/title_change_password"
-        android:title="@string/change_password" />
-
     <PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="@string/notyfications">

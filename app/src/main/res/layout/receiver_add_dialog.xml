@@ -22,7 +22,7 @@
         android:ems="10"
         android:id="@+id/editTextNick"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/imageButtonContacs"
+        android:layout_below="@+id/buttonContacs"
         android:layout_alignParentLeft="true" />
 
     <EditText
@@ -48,13 +48,16 @@
         android:layout_below="@+id/editTextNick"
         android:layout_alignParentLeft="true" />
 
-    <ImageButton
+    <Button
+        android:text="Wybierz z książki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButtonContacs"
+        android:id="@+id/buttonContacs"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:onClick="selectContact"
         android:src="@drawable/ic_action_person" />
+
+
 
 </RelativeLayout>

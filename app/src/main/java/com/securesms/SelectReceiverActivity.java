@@ -13,7 +13,7 @@ import com.securesms.DbAdapter;
 import com.securesms.R;
 
 /**
- * Created by Sebastian Soko³owski on 2015-07-06.
+ * Created by Sebastian Sokolowski on 2015-07-06.
  */
 public class SelectReceiverActivity extends ListActivity {
     private DbAdapter dbHelper;

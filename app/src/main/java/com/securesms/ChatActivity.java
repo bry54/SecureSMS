@@ -3,6 +3,8 @@ package com.securesms;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.telephony.SmsManager;
@@ -88,46 +90,10 @@ public class ChatActivity extends ListActivity {
         dbHelper.open();
         Cursor cursor = dbHelper.searchRowMessageRec(recId);
         dbHelper.close();
-        // The desired columns to be bound
-        String[] columns = new String[]{DbAdapter.MES_TEXT, DbAdapter.MES_DATE};
-
-        // the XML defined views which the data will be bound to
-        int[] to = new int[]{R.id.message, R.id.message_date};
-
+ 
         // create the adapter using the cursor pointing to the desired data
         // as well as the layout information
-        SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(this, R.layout.chat_list_view_item,
-                cursor, columns, to, 0) {
-            @Override
-            public void bindView(final View view, final Context context, Cursor cursor) {
-                super.bindView(view, context, cursor);
-
-                TextView message = (TextView) view.findViewById(R.id.message);
-                TextView date = (TextView) view.findViewById(R.id.message_date);
-                int rec = cursor.getInt(cursor
-                        .getColumnIndexOrThrow(DbAdapter.MES_REC));
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)message.getLayoutParams();
-
-                if (rec == 0) {
-                    message.setBackgroundResource(R.drawable.message_receiver_text_view);
-                    message.setGravity(Gravity.RIGHT);
-                    date.setGravity(Gravity.RIGHT);
-
-                    params.setMargins(75, 0, 5, 0); //substitute parameters for left, top, right, bottom
-                    message.setLayoutParams(params);
-                } else {
-                    message.setBackgroundResource(R.drawable.
-                            message_sender_text_view);
-                    message.setGravity(Gravity.LEFT);
-                    date.setGravity(Gravity.LEFT);
-
-                    params.setMargins(5, 0, 75, 0); //substitute parameters for left, top, right, bottom
-                    message.setLayoutParams(params);
-                }
-
-            }
-
-        };
+        ChatCursorAdapter dataAdapter = new ChatCursorAdapter(ChatActivity.this,cursor,0);
         // Assign adapter to ListView
         setListAdapter(dataAdapter);
 
