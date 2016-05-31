@@ -8,6 +8,8 @@ android {
         applicationId "com.securesms"
         minSdkVersion 14
         targetSdkVersion 14
+        versionCode 3
+        versionName "1.0.2"
     }
 
     buildTypes {
@@ -20,4 +22,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:18.0.0'
+    testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:1.9.5"
 }
