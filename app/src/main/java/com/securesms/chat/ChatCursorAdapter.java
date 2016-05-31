@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by Sebastian Soko³owski on 2015-07-12.
+ * Created by Sebastian SokoÅ‚owski on 2015-07-12.
  */
 public class ChatCursorAdapter extends CursorAdapter {
 
@@ -45,7 +45,7 @@ public class ChatCursorAdapter extends CursorAdapter {
             e.printStackTrace();
         }
 
-        //ustawianie pól
+        //ustawianie pï¿½l
         tv_message.setText(cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.MES_TEXT)));
         tv_date.setText(date);
 
