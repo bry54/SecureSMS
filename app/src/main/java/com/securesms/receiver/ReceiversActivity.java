@@ -17,7 +17,7 @@ import android.widget.ImageButton;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
-import com.securesms.DbAdapter;
+import com.securesms.database.DbAdapter;
 import com.securesms.R;
 import com.securesms.items.ReceiverItem;
 

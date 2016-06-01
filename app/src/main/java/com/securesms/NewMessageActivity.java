@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.securesms.database.DbAdapter;
 import com.securesms.receiver.SelectReceiverActivity;
+import com.securesms.utils.AlgoritmAES;
 
 public class NewMessageActivity extends Activity {
     DbAdapter dbHelper;

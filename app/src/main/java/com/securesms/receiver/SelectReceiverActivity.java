@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.securesms.DbAdapter;
+import com.securesms.database.DbAdapter;
 import com.securesms.R;
 
 /**

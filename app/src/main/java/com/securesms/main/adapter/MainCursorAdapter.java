@@ -1,20 +1,15 @@
-package com.securesms.main;
+package com.securesms.main.adapter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.preference.PreferenceManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.securesms.AlgoritmAES;
-import com.securesms.DbAdapter;
+import com.securesms.database.DbAdapter;
 import com.securesms.R;
 
 import java.text.ParseException;

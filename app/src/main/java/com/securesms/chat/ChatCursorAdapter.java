@@ -12,8 +12,7 @@ import android.widget.CursorAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.securesms.AlgoritmAES;
-import com.securesms.DbAdapter;
+import com.securesms.database.DbAdapter;
 import com.securesms.R;
 
 import java.text.ParseException;

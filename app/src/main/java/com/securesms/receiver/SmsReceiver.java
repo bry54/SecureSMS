@@ -1,4 +1,4 @@
-package com.securesms;
+package com.securesms.receiver;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -14,9 +14,12 @@ import android.support.v4.app.TaskStackBuilder;
 import android.telephony.SmsMessage;
 
 
+import com.securesms.utils.AlgoritmAES;
+import com.securesms.database.DbAdapter;
+import com.securesms.MainActivity;
+import com.securesms.R;
 import com.securesms.chat.ChatActivity;
 import com.securesms.items.ReceiverItem;
-import com.securesms.main.MainActivity;
 
 public class SmsReceiver extends BroadcastReceiver {
     @Override

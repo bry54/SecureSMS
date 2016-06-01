@@ -1,31 +1,22 @@
-package com.securesms;
+package com.securesms.utils;
 
 import android.content.Context;
 import android.telephony.SmsManager;
 import android.util.Base64;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.util.Base64;
-import android.view.View;
 import android.widget.Toast;
 
+import com.securesms.R;
+import com.securesms.database.DbAdapter;
 import com.securesms.items.MessageItem;
 import com.securesms.items.ReceiverItem;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 

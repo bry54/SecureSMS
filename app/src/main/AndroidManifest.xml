@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,12 @@
         <activity android:name=".NewMessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity android:name=".chat.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
         <activity android:name=".receiver.SelectReceiverActivity">
             <meta-data
@@ -38,16 +38,16 @@
         <activity android:name=".receiver.ReceiversActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
 
         <activity android:name=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value=".MainActivity" />
         </activity>
 
-        <receiver android:name=".SmsReceiver">
+        <receiver android:name=".receiver.SmsReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>

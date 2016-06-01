@@ -12,8 +12,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.securesms.AlgoritmAES;
-import com.securesms.DbAdapter;
+import com.securesms.utils.AlgoritmAES;
+import com.securesms.database.DbAdapter;
 import com.securesms.R;
 import com.securesms.items.MessageItem;
 

@@ -1,28 +1,18 @@
-package com.securesms.main;
+package com.securesms;
 
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
-import com.securesms.DbAdapter;
-import com.securesms.NewMessageActivity;
-import com.securesms.R;
-import com.securesms.SettingsActivity;
 import com.securesms.chat.ChatActivity;
-import com.securesms.chat.ChatCursorAdapter;
+import com.securesms.database.DbAdapter;
+import com.securesms.main.adapter.MainCursorAdapter;
 import com.securesms.receiver.ReceiversActivity;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class MainActivity extends ListActivity {
