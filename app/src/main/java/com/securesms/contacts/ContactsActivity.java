@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.securesms.R;
@@ -27,6 +28,7 @@ import com.securesms.contacts.model.ReceiverUserModel;
 
 public class ContactsActivity extends Activity implements ContactsView {
     private ListView mListView;
+    private TextView mEmpty;
     private ImageButton mButtonAdd;
 
     private EditText mDialogNick;
@@ -41,6 +43,7 @@ public class ContactsActivity extends Activity implements ContactsView {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.receiver_list_view);
         mListView = (ListView) findViewById(R.id.list_contacts);
+        mEmpty = (TextView) findViewById(R.id.empty);
         mButtonAdd = (ImageButton) findViewById(R.id.buttonReceiveAdd);
         mButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +147,11 @@ public class ContactsActivity extends Activity implements ContactsView {
                 cursor, columns, to, 0, mPresenter, this);
 
         mListView.setAdapter(dataAdapter);
+        if (dataAdapter.getCount() > 0) {
+            mEmpty.setVisibility(View.GONE);
+        } else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

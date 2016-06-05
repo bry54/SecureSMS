@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.securesms.newMessage.NewMessageActivity;
 import com.securesms.R;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity implements MainView {
     public static int mId = 1921;
 
     private ListView mListView;
+    private TextView mEmpty;
 
     private final MainPresenter mPresenter = new MainPresenterImpl();
 
@@ -36,6 +38,7 @@ public class MainActivity extends Activity implements MainView {
         setContentView(R.layout.main_list_view);
 
         mListView = (ListView) findViewById(R.id.list_contacts);
+        mEmpty = (TextView) findViewById(R.id.empty);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -104,5 +107,10 @@ public class MainActivity extends Activity implements MainView {
         MainCursorAdapter dataAdapter = new MainCursorAdapter(this, cursor, 0);
         // Assign adapter to ListView
         mListView.setAdapter(dataAdapter);
+        if (dataAdapter.getCount() > 0) {
+            mEmpty.setVisibility(View.GONE);
+        }else{
+            mEmpty.setVisibility(View.VISIBLE);
+        }
     }
 }

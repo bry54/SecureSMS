@@ -2,65 +2,66 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/receiverName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/deleteReceiver"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:layout_toLeftOf="@+id/deleteReceiver"
             android:autoText="false"
             android:gravity="left"
             android:text="RECEIVER NAME"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignBottom="@+id/deleteReceiver" />
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/receiverNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/receiverName"
+            android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:autoText="false"
             android:gravity="left"
             android:text="RECEIVER NUMBER"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_alignBottom="@+id/receiverName"
-            android:layout_alignParentLeft="true" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/deleteReceiver"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_gravity="right"
-            android:src="@drawable/ic_action_remove" />
+    <ImageButton
+        android:id="@+id/deleteReceiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="right"
+        android:src="@drawable/ic_action_remove" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editReceiver"
-            android:src="@drawable/ic_action_edit"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/deleteReceiver" />
+    <ImageButton
+        android:id="@+id/editReceiver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/deleteReceiver"
+        android:src="@drawable/ic_action_edit" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:visibility="gone"
-            android:id="@+id/receiverPassword"
-            android:layout_below="@+id/receiverName"
-            android:layout_alignParentLeft="true" />
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/receiverPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/receiverName"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="gone" />
 
 
 </LinearLayout>

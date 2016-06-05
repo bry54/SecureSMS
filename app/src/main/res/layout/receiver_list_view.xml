@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:layout_height="fill_parent">
 
     <ListView
         android:id="@+id/list_contacts"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
         android:layout_above="@+id/buttonReceiveAdd"
+        android:layout_alignParentLeft="true"
         android:choiceMode="none" />
-    <TextView android:id="@android:id/empty"
+
+    <TextView
+        android:id="@+id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="@string/no_receives"/>
+        android:text="@string/no_receives" />
 
     <ImageButton
+        android:id="@+id/buttonReceiveAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonReceiveAdd"
-        android:src="@drawable/ic_action_add_person"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:onClick="alertDialogAdd"
-        android:layout_alignParentLeft="true" />
+        android:src="@drawable/ic_action_add_person" />
 
 </RelativeLayout>
