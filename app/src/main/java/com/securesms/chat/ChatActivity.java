@@ -1,6 +1,6 @@
 package com.securesms.chat;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -11,47 +11,57 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.securesms.utils.AlgoritmAES;
-import com.securesms.database.DbAdapter;
+import com.securesms.main.MainActivity;
 import com.securesms.R;
-import com.securesms.items.MessageItem;
+import com.securesms.chat.view.adapter.ChatCursorAdapter;
+import com.securesms.chat.model.User;
+import com.securesms.chat.presenter.ChatPresenterImpl;
+import com.securesms.chat.presenter.interfaces.ChatPresenter;
+import com.securesms.chat.view.interfaces.ChatView;
+import com.securesms.chat.model.MessageModel;
 
-public class ChatActivity extends ListActivity {
-    private DbAdapter dbHelper;
+public class ChatActivity extends Activity implements ChatView {
+    private ImageButton btn_send;
+    private EditText et_message;
+    private ListView lv_messages;
 
-    ImageButton btn_send;
-    EditText et_message;
-    String nick;
-    String number;
-
-    long recId;
+    private final ChatPresenter mPresenter = new ChatPresenterImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat);
+        setContentView(R.layout.activity_chat);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        registerForContextMenu(getListView());
 
-        dbHelper = new DbAdapter(this);
         btn_send = (ImageButton) findViewById(R.id.send_message);
         et_message = (EditText) findViewById(R.id.message_text);
+        lv_messages = (ListView) findViewById(R.id.list_message);
+
         Bundle bundle = getIntent().getExtras();
+
+
         if (bundle != null) {
-            recId = bundle.getInt("recId");
-            nick = bundle.getString("nick");
-            number = bundle.getString("number");
-            getActionBar().setTitle(nick + "\n" + number);
+            User user = (User) bundle.getSerializable(MainActivity.USER_EXTRA);
+            mPresenter.setUser(user);
+            getActionBar().setTitle(user.getNick() + "\n" + user.getNumber());
 
-            //zaznaczenie wiadomości jako odczytanej
-            dbHelper.open();
-            dbHelper.setReadMessages(recId);
-            dbHelper.close();
+            mPresenter.checkMessagesRead();
         }
-        displayListView();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.releaseView();
     }
 
     @Override
@@ -67,25 +77,7 @@ public class ChatActivity extends ListActivity {
 
     public void send_message(View v) {
         String message = et_message.getText().toString();
-        AlgoritmAES algoritmAES = new AlgoritmAES();
-
-        algoritmAES.send_message(number, message, getApplicationContext());
-        et_message.setText("");
-        displayListView();
-    }
-
-    private void displayListView() {
-        dbHelper.open();
-        Cursor cursor = dbHelper.searchRowMessageRec(recId);
-        dbHelper.close();
- 
-        // create the adapter using the cursor pointing to the desired data
-        // as well as the layout information
-        ChatCursorAdapter dataAdapter = new ChatCursorAdapter(ChatActivity.this,cursor,0);
-        // Assign adapter to ListView
-        setListAdapter(dataAdapter);
-
-
+        mPresenter.sendMessage(message);
     }
 
     @Override
@@ -101,15 +93,30 @@ public class ChatActivity extends ListActivity {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.remove_message:
-                MessageItem tmp = new MessageItem();
-                tmp.id = info.id;
-                dbHelper.open();
-                dbHelper.deleteRowMessage(tmp);
-                dbHelper.close();
-                displayListView();
+                MessageModel messageModel = new MessageModel();
+                messageModel.id = info.id;
+                mPresenter.removeMessage(messageModel);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    @Override
+    public void successfulSendMessage() {
+        et_message.setText("");
+        Toast.makeText(this, this.getString(R.string.send_sms), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void failSendMessage() {
+        Toast.makeText(this, this.getString(R.string.error_send_sms), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void setMessages(Cursor cursor) {
+        ChatCursorAdapter dataAdapter = new ChatCursorAdapter(ChatActivity.this, cursor, 0);
+        // Assign adapter to ListView
+        lv_messages.setAdapter(dataAdapter);
     }
 }

@@ -1,4 +1,4 @@
-package com.securesms.main.adapter;
+package com.securesms.main.view.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -20,12 +20,11 @@ import java.util.Date;
  * Created by Sebastian Soko�owski on 2015-07-12.
  */
 public class MainCursorAdapter extends CursorAdapter {
-    DbAdapter dbHelper;
+    private final DbAdapter dbAdapter = DbAdapter.INSTANCE;
     private LayoutInflater mInflater;
 
     public MainCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
-        dbHelper = new DbAdapter(context);
         mInflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -47,11 +46,11 @@ public class MainCursorAdapter extends CursorAdapter {
         }
         //pobieranie danych z bazy danych
 
-        dbHelper.open();
-        boolean isRead = dbHelper.isReadMessageReceiver(receiverId);
-        int count = dbHelper.getCountMessageReceiver(receiverId);
+        dbAdapter.open();
+        boolean isRead = dbAdapter.isReadMessageReceiver(receiverId);
+        int count = dbAdapter.getCountMessageReceiver(receiverId);
         //String lastMessage = dbHelper.get
-        dbHelper.close();
+        dbAdapter.close();
 
         //ustawianie zdjecia wiadomosci (czy odebrana czy nie)
 
@@ -74,7 +73,7 @@ public class MainCursorAdapter extends CursorAdapter {
         return mInflater.inflate(R.layout.main_list_view_item, parent, false);
     }
     public String parseDate(String date) throws ParseException {
-        String wynik = "";
+        String result = "";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
@@ -86,10 +85,10 @@ public class MainCursorAdapter extends CursorAdapter {
 
         //ten sam dzien
         if (sdf4.format(tmp).equals(sdf4.format(now))) {
-            wynik = sdf2.format(tmp);
+            result = sdf2.format(tmp);
         } else {
-            wynik = sdf3.format(tmp);
+            result = sdf3.format(tmp);
         }
-        return wynik;
+        return result;
     }
 }

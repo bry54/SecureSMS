@@ -7,8 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.securesms.items.MessageItem;
-import com.securesms.items.ReceiverItem;
+import com.securesms.chat.model.MessageModel;
+import com.securesms.contacts.model.ReceiverUserModel;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,9 @@ public class DbAdapter {
 
     private DatabaseHelper dbHelper;
     private SQLiteDatabase db;
-    private final Context dbContex;
+    private final Context dbContext;
+
+    public static DbAdapter INSTANCE;
 
     private static final String DATABASE_RECEIVERS_CREATE = "CREATE TABLE if not exists "
             + SQLLITE_TABLE_RECEIVERS
@@ -84,12 +86,18 @@ public class DbAdapter {
         }
     }
 
-    public DbAdapter(Context ctx) {
-        this.dbContex = ctx;
+    private DbAdapter(Context ctx) {
+        this.dbContext = ctx;
+    }
+
+    public static void initInstance(Context context){
+        if(INSTANCE == null){
+            INSTANCE = new DbAdapter(context);
+        }
     }
 
     public DbAdapter open() throws SQLException {
-        dbHelper = new DatabaseHelper(dbContex);
+        dbHelper = new DatabaseHelper(dbContext);
         db = dbHelper.getWritableDatabase();
         is_open = true;
         return this;
@@ -108,36 +116,36 @@ public class DbAdapter {
     }
 
     // zadania do tabeli Receiver
-    public long createRowReceiver(ReceiverItem t) {
+    public long createRowReceiver(ReceiverUserModel t) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(REC_NAME, t.name);
-        initialValues.put(REC_NUMBER, t.number);
-        initialValues.put(REC_CODE, t.code);
+        initialValues.put(REC_NAME, t.getName());
+        initialValues.put(REC_NUMBER, t.getNumber());
+        initialValues.put(REC_CODE, t.getPassword());
         return db.insert(SQLLITE_TABLE_RECEIVERS, null, initialValues);
     }
 
-    public long deleteRowReceiver(ReceiverItem t) {
+    public long deleteRowReceiver(ReceiverUserModel t) {
         return db.delete(SQLLITE_TABLE_RECEIVERS, REC_ID + " =?",
-                new String[]{t.id + ""});
+                new String[]{t.getId() + ""});
     }
 
-    public long updateRowReceive(ReceiverItem t) {
+    public long updateRowReceive(ReceiverUserModel t) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(REC_NAME, t.name);
-        initialValues.put(REC_NUMBER, t.number);
-        initialValues.put(REC_CODE, t.code);
+        initialValues.put(REC_NAME, t.getName());
+        initialValues.put(REC_NUMBER, t.getNumber());
+        initialValues.put(REC_CODE, t.getPassword());
         return db.update(SQLLITE_TABLE_RECEIVERS, initialValues, REC_ID + " =?",
-                new String[]{t.id + ""});
+                new String[]{t.getId() + ""});
     }
 
-    public ReceiverItem searchRowReceiverId(String id) {
-        ReceiverItem wynik = null;
+    public ReceiverUserModel searchRowReceiverId(String id) {
+        ReceiverUserModel wynik = null;
         String[] allColumns = new String[]{REC_ID, REC_NAME,
                 REC_NUMBER, REC_CODE};
         Cursor c = db.query(SQLLITE_TABLE_RECEIVERS, allColumns, REC_ID + "= ?",
                 new String[]{id}, null, null, null);
         if (c != null && c.moveToFirst()) {
-            wynik = new ReceiverItem(c.getInt(0), c.getString(1), c.getString(2),
+            wynik = new ReceiverUserModel(c.getInt(0), c.getString(1), c.getString(2),
                     c.getString(3));
             c.close();
         }
@@ -145,14 +153,14 @@ public class DbAdapter {
         return wynik;
     }
 
-    public ReceiverItem searchRowReceiverNumber(String number) {
-        ReceiverItem wynik = null;
+    public ReceiverUserModel searchRowReceiverNumber(String number) {
+        ReceiverUserModel wynik = null;
         String[] allColumns = new String[]{REC_ID, REC_NAME,
                 REC_NUMBER, REC_CODE};
         Cursor c = db.query(SQLLITE_TABLE_RECEIVERS, allColumns, REC_NUMBER + "= ?",
                 new String[]{number}, null, null, null);
         if (c != null && c.moveToFirst()) {
-            wynik = new ReceiverItem(c.getInt(0), c.getString(1), c.getString(2),
+            wynik = new ReceiverUserModel(c.getInt(0), c.getString(1), c.getString(2),
                     c.getString(3));
             c.close();
         }
@@ -186,7 +194,7 @@ public class DbAdapter {
     }
 
     // zadania do tabeli Receiver
-    public long createRowMessage(MessageItem t) {
+    public long createRowMessage(MessageModel t) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(MES_REC_ID, t.id_receivers);
         initialValues.put(MES_DATE, t.date);
@@ -204,12 +212,12 @@ public class DbAdapter {
                 new String[]{id + "", 1 + ""});
     }
 
-    public long deleteRowMessage(MessageItem t) {
+    public long deleteRowMessage(MessageModel t) {
         return db.delete(SQLLITE_TABLE_MESSAGES, REC_ID + " =?",
                 new String[]{t.id + ""});
     }
 
-    public long updateRowMessage(MessageItem t) {
+    public long updateRowMessage(MessageModel t) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(MES_REC_ID, t.id_receivers);
         initialValues.put(MES_DATE, t.date);
@@ -220,14 +228,14 @@ public class DbAdapter {
                 new String[]{t.id + ""});
     }
 
-    public MessageItem searchRowMessageId(int id) {
-        MessageItem wynik = null;
+    public MessageModel searchRowMessageId(int id) {
+        MessageModel wynik = null;
         String[] allColumns = new String[]{MES_ID, MES_REC_ID, MES_DATE,
                 MES_TEXT, MES_REC, MES_READ};
         Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_ID + "= ?",
                 new String[]{id + ""}, null, null, null);
         if (c != null && c.moveToFirst()) {
-            wynik = new MessageItem(c.getInt(0), c.getInt(1), c.getString(2),
+            wynik = new MessageModel(c.getInt(0), c.getInt(1), c.getString(2),
                     c.getString(3), c.getInt(4), c.getInt(5));
             c.close();
         }
@@ -245,16 +253,16 @@ public class DbAdapter {
         return c;
     }
 
-    public ArrayList<MessageItem> getRowsMessagesRec(long id) {
-        ArrayList<MessageItem> list = new ArrayList<MessageItem>();
+    public ArrayList<MessageModel> getRowsMessagesRec(long id) {
+        ArrayList<MessageModel> list = new ArrayList<MessageModel>();
         String[] allColumns = new String[]{MES_TEXT, MES_DATE, MES_REC};
         Cursor c = db.query(SQLLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + "= ?", new String[]{id + ""}, null,
                 null, MES_DATE);
         if (c != null && c.moveToFirst()) {
-            MessageItem item = new MessageItem(c.getString(0), c.getString(1), c.getInt(2));
+            MessageModel item = new MessageModel(c.getString(0), c.getString(1), c.getInt(2));
             list.add(item);
             while (c.moveToNext()) {
-                item = new MessageItem(c.getString(0), c.getString(1), c.getInt(2));
+                item = new MessageModel(c.getString(0), c.getString(1), c.getInt(2));
                 list.add(item);
             }
         }

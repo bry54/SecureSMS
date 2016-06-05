@@ -1,6 +1,6 @@
-package com.securesms.items;
+package com.securesms.chat.model;
 
-public class MessageItem {
+public class MessageModel {
     public long id;
     public long id_receivers;
     public String date;
@@ -8,12 +8,10 @@ public class MessageItem {
     public int rec;
     public int read;
 
-    public MessageItem() {
-        // TODO Auto-generated constructor stub
+    public MessageModel() {
     }
 
-    public MessageItem(long id, long id_receivers, String date, String text, int rec, int read) {
-        // TODO Auto-generated constructor stub
+    public MessageModel(long id, long id_receivers, String date, String text, int rec, int read) {
         this.id = id;
         this.id_receivers = id_receivers;
         this.date = date;
@@ -22,7 +20,7 @@ public class MessageItem {
         this.read = read;
     }
 
-    public MessageItem(String text, String date, int rec) {
+    public MessageModel(String text, String date, int rec) {
         this.text = text;
         this.date = date;
         this.rec = rec;

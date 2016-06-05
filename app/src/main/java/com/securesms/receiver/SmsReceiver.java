@@ -14,14 +14,18 @@ import android.support.v4.app.TaskStackBuilder;
 import android.telephony.SmsMessage;
 
 
-import com.securesms.utils.AlgoritmAES;
+import com.securesms.chat.model.User;
+import com.securesms.utils.AlgorithmAES;
 import com.securesms.database.DbAdapter;
-import com.securesms.MainActivity;
+import com.securesms.main.MainActivity;
 import com.securesms.R;
 import com.securesms.chat.ChatActivity;
-import com.securesms.items.ReceiverItem;
+import com.securesms.contacts.model.ReceiverUserModel;
 
 public class SmsReceiver extends BroadcastReceiver {
+    private final AlgorithmAES algorithmAES = AlgorithmAES.INSTANCE;
+    private final DbAdapter dbAdapter = DbAdapter.INSTANCE;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // ---get the SMS message passed in---
@@ -49,23 +53,18 @@ public class SmsReceiver extends BroadcastReceiver {
             boolean showNotyfications = prefs.getBoolean("showNotyfications", true);
 
 
-
-
             //sprawdzenie czy wiadomosc jest zakodowana
             if (messageReceived.startsWith("!encsms")) {
                 //sprawdzenie czy numer jest w bazie
-                DbAdapter dbHelper = new DbAdapter(context);
-                dbHelper.open();
-                ReceiverItem receiver_item = dbHelper.searchRowReceiverNumber(senderPhoneNumber.substring(3));
-                dbHelper.close();
+                dbAdapter.open();
+                ReceiverUserModel receiver_item = dbAdapter.searchRowReceiverNumber(senderPhoneNumber.substring(3));
+                dbAdapter.close();
 
-                if(receiver_item==null)
-                {
+                if (receiver_item == null) {
                     return;
                 }
 
-                AlgoritmAES algoritmAES = new AlgoritmAES();
-                String message = algoritmAES.receive_message(receiver_item, messageReceived.substring(7), context);
+                String message = algorithmAES.receive_message(receiver_item, messageReceived.substring(7), context);
                 if (showNotyfications) {
                     notify(context, senderPhoneNumber.substring(3), message);
                 }
@@ -76,10 +75,9 @@ public class SmsReceiver extends BroadcastReceiver {
     }
 
     public void notify(Context context, String number, String message) {
-        DbAdapter dbHelper = new DbAdapter(context);
-        dbHelper.open();
-        ReceiverItem receiver_item = dbHelper.searchRowReceiverNumber(number);
-        dbHelper.close();
+        dbAdapter.open();
+        ReceiverUserModel receiver_item = dbAdapter.searchRowReceiverNumber(number);
+        dbAdapter.close();
 
         //pobranie ustawien i ustalenie czy wiadomosc ma byc pokazana na pasku
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -88,14 +86,14 @@ public class SmsReceiver extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(receiver_item.name).setAutoCancel(true);
+                        .setContentTitle(receiver_item.getName()).setAutoCancel(true);
 
         //ustawienie wibracji i dzwieku
         if (prefs.getBoolean("cbp_sound", false)) {
             mBuilder.setSound(Uri.parse(prefs.getString("rp_ringtone", null)));
         }
         if (prefs.getBoolean("cbp_vibration", false)) {
-            long[] steps = { 0, 500, 100, 200, 100, 200 };
+            long[] steps = {0, 500, 100, 200, 100, 200};
             mBuilder.setVibrate(steps);
         }
 
@@ -103,11 +101,13 @@ public class SmsReceiver extends BroadcastReceiver {
             //pokazanie wiadomosci
             mBuilder.setContentText(message);
         }
-// Creates an explicit intent for an Activity in your app
+        int recId = receiver_item.getId();
+        String nick = receiver_item.getName();
+
         Intent resultIntent = new Intent(context, ChatActivity.class);
-        resultIntent.putExtra("recId", receiver_item.id);
-        resultIntent.putExtra("nick", receiver_item.name);
-        resultIntent.putExtra("number", number);
+
+        User user = new User(recId, nick, number);
+        resultIntent.putExtra(MainActivity.USER_EXTRA, user);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.

@@ -1,8 +1,10 @@
-package com.securesms;
+package com.securesms.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.v4.app.NavUtils;
+
+import com.securesms.R;
 
 /**
  * Created by Sebastian Sokolowski on 2015-07-06.
@@ -13,7 +15,7 @@ public class SettingsActivity extends PreferenceActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        addPreferencesFromResource(R.layout.settings);
+        addPreferencesFromResource(R.layout.activity_settings);
     }
 
     @Override

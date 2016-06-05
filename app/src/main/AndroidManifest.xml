@@ -7,12 +7,13 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,31 +21,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewMessageActivity">
+        <activity android:name=".newMessage.NewMessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".main.MainActivity" />
         </activity>
         <activity android:name=".chat.ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".main.MainActivity" />
         </activity>
-        <activity android:name=".receiver.SelectReceiverActivity">
+        <activity android:name=".selectContact.SelectReceiverActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".NewMessageActivity" />
+                android:value=".newMessage.NewMessageActivity" />
         </activity>
-        <activity android:name=".receiver.ReceiversActivity">
+        <activity android:name=".contacts.ContactsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".main.MainActivity" />
         </activity>
 
-        <activity android:name=".SettingsActivity">
+        <activity android:name=".settings.SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".main.MainActivity" />
         </activity>
 
         <receiver android:name=".receiver.SmsReceiver">

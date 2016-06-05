@@ -5,7 +5,7 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@android:id/list"
+        android:id="@+id/list_contacts"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -23,7 +23,7 @@
         android:id="@+id/buttonReceiveAdd"
         android:src="@drawable/ic_action_add_person"
         android:layout_alignParentBottom="true"
-        android:onClick="add_code"
+        android:onClick="alertDialogAdd"
         android:layout_alignParentLeft="true" />
 
 </RelativeLayout>

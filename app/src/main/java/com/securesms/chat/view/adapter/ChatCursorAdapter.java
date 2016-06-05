@@ -1,4 +1,4 @@
-package com.securesms.chat;
+package com.securesms.chat.view.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;

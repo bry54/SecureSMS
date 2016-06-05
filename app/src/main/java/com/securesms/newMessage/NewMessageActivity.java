@@ -1,4 +1,4 @@
-package com.securesms;
+package com.securesms.newMessage;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,35 +7,50 @@ import android.support.v4.app.NavUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.securesms.database.DbAdapter;
-import com.securesms.receiver.SelectReceiverActivity;
-import com.securesms.utils.AlgoritmAES;
+import com.securesms.R;
+import com.securesms.selectContact.SelectReceiverActivity;
+import com.securesms.newMessage.model.NewMessageModel;
+import com.securesms.newMessage.presenter.NewMessagePresenterImpl;
+import com.securesms.newMessage.presenter.interfaces.NewMessagePresenter;
+import com.securesms.newMessage.view.interfaces.NewMessageView;
 
-public class NewMessageActivity extends Activity {
-    DbAdapter dbHelper;
-    ImageButton btn_send;
-    ImageButton btn_add_contact;
-    EditText et_number;
-    EditText et_message;
+public class NewMessageActivity extends Activity implements NewMessageView {
+    private ImageButton btn_send;
+    private ImageButton btn_add_contact;
+    private EditText et_number;
+    private EditText et_message;
+
+    private final NewMessagePresenter mPresenter = new NewMessagePresenterImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.message_add);
+        setContentView(R.layout.activity_new_message);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        dbHelper = new DbAdapter(this);
         btn_send = (ImageButton) findViewById(R.id.send_message);
         btn_add_contact = (ImageButton) findViewById(R.id.show_contacts);
         et_number = (EditText) findViewById(R.id.message_number);
         et_message = (EditText) findViewById(R.id.message_text);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.takeView(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.releaseView();
+    }
+
     public void selectReceive(View v) {
         Intent intent = new Intent(getApplicationContext(), SelectReceiverActivity.class);
         startActivityForResult(intent, 1);
     }
-
 
 
     @Override
@@ -59,15 +74,28 @@ public class NewMessageActivity extends Activity {
             }
         }
     }
-    public void send_message(View v) {
-        AlgoritmAES algoritmAES = new AlgoritmAES();
 
+    public void send_message(View v) {
         String phoneNo = et_number.getText().toString();
         String message = et_message.getText().toString();
 
+        NewMessageModel newMessageModel = new NewMessageModel(phoneNo, message);
+        mPresenter.sentMessage(newMessageModel);
+    }
 
-        algoritmAES.send_message(phoneNo,message,getApplicationContext());
+    @Override
+    public void successfulSendMessage() {
+        Toast.makeText(this, getString(R.string.send_sms), Toast.LENGTH_LONG).show();
         finish();
     }
 
+    @Override
+    public void failSendMessage() {
+        Toast.makeText(this, getString(R.string.error_send_sms), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void noPhoneNumber() {
+        et_number.setError("No phone number");
+    }
 }
