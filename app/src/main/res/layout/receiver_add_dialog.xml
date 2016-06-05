@@ -28,17 +28,6 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:gravity="center"
-        android:id="@+id/editTextPassword"
-        android:hint="@string/password"
-        android:layout_below="@+id/editTextNumber"
-        android:layout_alignParentLeft="true" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:inputType="phone"
         android:hint="@string/number"
         android:minEms="10"
@@ -46,6 +35,17 @@
         android:ems="10"
         android:id="@+id/editTextNumber"
         android:layout_below="@+id/editTextNick"
+        android:layout_alignParentLeft="true" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:gravity="center"
+        android:id="@+id/editTextPassword"
+        android:hint="@string/password"
+        android:layout_below="@+id/editTextNumber"
         android:layout_alignParentLeft="true" />
 
     <Button
