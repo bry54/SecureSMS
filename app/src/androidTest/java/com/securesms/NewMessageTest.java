@@ -3,16 +3,16 @@ package com.securesms;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
-import com.securesms.main.MainActivity;
+import com.securesms.newMessage.NewMessageActivity;
 
 /**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
+ * Created by admin on 2016-06-06.
  */
-public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivity> {
+public class NewMessageTest extends ActivityInstrumentationTestCase2<NewMessageActivity> {
     private Solo solo;
 
-    public ApplicationTest() {
-        super(MainActivity.class);
+    public NewMessageTest() {
+        super(NewMessageActivity.class);
     }
 
     @Override
@@ -28,5 +28,15 @@ public class ApplicationTest extends ActivityInstrumentationTestCase2<MainActivi
         //tearDown() is run after a test case has finished.
         //finishOpenedActivities() will finish all the activities that have been opened during the test execution.
         solo.finishOpenedActivities();
+    }
+
+
+    public void testNewMessage() throws Exception {
+        //Unlock the lock screen
+        solo.unlockScreen();
+        //Click on action menu contacts
+        solo.clickOnView(solo.getView(com.securesms.R.id.action_new_message));
+        //Assert that NoteEditor activity is opened
+        solo.assertCurrentActivity("Expected NewMessageActivity", NewMessageActivity.class);
     }
 }
