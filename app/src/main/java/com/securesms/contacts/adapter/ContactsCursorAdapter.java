@@ -21,13 +21,18 @@ public class ContactsCursorAdapter extends SimpleCursorAdapter {
     private final Context mContext;
     private final ContactsPresenter mPresenter;
     private final ContactsView mView;
+    private final boolean mResultNumber;
 
-    public ContactsCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags, ContactsPresenter contactsPresenter, ContactsView view) {
+    public ContactsCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to,
+                                 int flags, ContactsPresenter contactsPresenter, ContactsView view, boolean resultNumber) {
         super(context, layout, c, from, to, flags);
         this.mContext = context;
         this.mPresenter = contactsPresenter;
         this.mView = view;
+        this.mResultNumber = resultNumber;
     }
+
+
 
     @Override
     public void bindView(final View view, Context context, final Cursor cursor) {
@@ -35,6 +40,12 @@ public class ContactsCursorAdapter extends SimpleCursorAdapter {
 
         ImageButton removeReceive = (ImageButton) view.findViewById(R.id.deleteReceiver);
         ImageButton editReceive = (ImageButton) view.findViewById(R.id.editReceiver);
+
+        if(mResultNumber){
+            removeReceive.setVisibility(View.GONE);
+            editReceive.setVisibility(View.GONE);
+        }
+
         final int position = cursor.getInt(cursor.getColumnIndex(DbAdapter.REC_ID));
 
         removeReceive.setOnClickListener(new View.OnClickListener() {

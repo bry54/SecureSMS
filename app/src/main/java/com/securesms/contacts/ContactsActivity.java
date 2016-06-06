@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -25,6 +27,8 @@ import com.securesms.contacts.presenter.ContactsPresenterImpl;
 import com.securesms.contacts.presenter.interfaces.ContactsPresenter;
 import com.securesms.contacts.view.interfaces.ContactsView;
 import com.securesms.database.DbAdapter;
+import com.securesms.main.MainActivity;
+import com.securesms.newMessage.NewMessageActivity;
 
 public class ContactsActivity extends Activity implements ContactsView {
     private ListView mListView;
@@ -34,6 +38,8 @@ public class ContactsActivity extends Activity implements ContactsView {
     private EditText mDialogNick;
     private EditText mDialogNumber;
     private EditText mDialogPassword;
+
+    private boolean mResultNumber = false;
 
     private final ContactsPresenter mPresenter = new ContactsPresenterImpl();
 
@@ -51,6 +57,22 @@ public class ContactsActivity extends Activity implements ContactsView {
                 alertDialogAdd(null);
             }
         });
+
+        mResultNumber = getIntent().getBooleanExtra(NewMessageActivity.EXTRA_RESULT_NUMBER, false);
+        if (mResultNumber) {
+            mButtonAdd.setVisibility(View.GONE);
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Cursor cursor = (Cursor) mListView.getItemAtPosition(i);
+                    String number = cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.REC_NUMBER));
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(NewMessageActivity.EXTRA_RESULT_NUMBER, number);
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
+                }
+            });
+        }
     }
 
     @Override
@@ -70,7 +92,11 @@ public class ContactsActivity extends Activity implements ContactsView {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                if(mResultNumber){
+                    onBackPressed();
+                }else{
+                    NavUtils.navigateUpFromSameTask(this);
+                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -148,7 +174,7 @@ public class ContactsActivity extends Activity implements ContactsView {
         int[] to = new int[]{R.id.receiverName, R.id.receiverNumber, R.id.receiverPassword};
 
         ContactsCursorAdapter dataAdapter = new ContactsCursorAdapter(this, R.layout.receiver_list_view_item,
-                cursor, columns, to, 0, mPresenter, this);
+                cursor, columns, to, 0, mPresenter, this, mResultNumber);
 
         mListView.setAdapter(dataAdapter);
         if (dataAdapter.getCount() > 0) {

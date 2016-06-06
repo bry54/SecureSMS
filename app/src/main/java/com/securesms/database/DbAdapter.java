@@ -181,7 +181,7 @@ public class DbAdapter {
         return result;
     }
 
-    public int getCountMessageReceiver(int id) {
+    public int getCountMessageReceiver(long id) {
         int result = 0;
         String[] allColumns = new String[]{MES_REC_ID, MES_READ};
         Cursor c = db.rawQuery("select count(*) from " + SQLITE_TABLE_MESSAGES + " where " + MES_REC_ID + "='" + id + "'", null);
@@ -195,11 +195,11 @@ public class DbAdapter {
     // zadania do tabeli Receiver
     public long createRowMessage(MessageModel t) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(MES_REC_ID, t.id_receivers);
-        initialValues.put(MES_DATE, t.date);
-        initialValues.put(MES_TEXT, t.text);
-        initialValues.put(MES_REC, t.rec);
-        initialValues.put(MES_READ, t.read);
+        initialValues.put(MES_REC_ID, t.getId_receivers());
+        initialValues.put(MES_DATE, t.getDate());
+        initialValues.put(MES_TEXT, t.getText());
+        initialValues.put(MES_REC, t.getRec());
+        initialValues.put(MES_READ, t.getRead());
         return db.insert(SQLITE_TABLE_MESSAGES, null, initialValues);
     }
 
@@ -213,7 +213,7 @@ public class DbAdapter {
 
     public long deleteRowMessage(MessageModel t) {
         return db.delete(SQLITE_TABLE_MESSAGES, REC_ID + " =?",
-                new String[]{t.id + ""});
+                new String[]{t.getId() + ""});
     }
 
     public Cursor searchRowMessageRec(long id) {
@@ -228,11 +228,17 @@ public class DbAdapter {
 
     public ArrayList<MessageModel> getRowsMessagesRec(long id) {
         ArrayList<MessageModel> list = new ArrayList<MessageModel>();
-        String[] allColumns = new String[]{MES_TEXT, MES_DATE, MES_REC};
-        Cursor c = db.query(SQLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + "= ?", new String[]{id + ""}, null,
+        Cursor c = db.query(SQLITE_TABLE_MESSAGES, null, MES_REC_ID + "= ?", new String[]{id + ""}, null,
                 null, MES_DATE);
         if (c != null && c.moveToFirst()) {
-            MessageModel item = new MessageModel(c.getString(0), c.getString(1), c.getInt(2));
+            MessageModel item = new MessageModel();
+            item.setId(c.getInt(c.getColumnIndexOrThrow(MES_ID)));
+            item.setId_receivers(c.getInt(c.getColumnIndexOrThrow(MES_REC_ID)));
+            item.setDate(c.getString(c.getColumnIndexOrThrow(MES_DATE)));
+            item.setText(c.getString(c.getColumnIndexOrThrow(MES_TEXT)));
+            item.setRec(c.getInt(c.getColumnIndexOrThrow(MES_REC)));
+            item.setRead(c.getInt(c.getColumnIndexOrThrow(MES_READ)));
+
             list.add(item);
             while (c.moveToNext()) {
                 item = new MessageModel(c.getString(0), c.getString(1), c.getInt(2));

@@ -10,13 +10,14 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.securesms.R;
+import com.securesms.contacts.ContactsActivity;
 import com.securesms.newMessage.model.NewMessageModel;
 import com.securesms.newMessage.presenter.NewMessagePresenterImpl;
 import com.securesms.newMessage.presenter.interfaces.NewMessagePresenter;
 import com.securesms.newMessage.view.interfaces.NewMessageView;
-import com.securesms.selectContact.SelectContactActivity;
 
 public class NewMessageActivity extends Activity implements NewMessageView {
+    public static final String EXTRA_RESULT_NUMBER = "EXTRA_RESULT_NUMBER";
     private ImageButton btn_send;
     private ImageButton btn_add_contact;
     private EditText et_number;
@@ -48,7 +49,8 @@ public class NewMessageActivity extends Activity implements NewMessageView {
     }
 
     public void selectReceive(View v) {
-        Intent intent = new Intent(getApplicationContext(), SelectContactActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ContactsActivity.class);
+        intent.putExtra(EXTRA_RESULT_NUMBER, true);
         startActivityForResult(intent, 1);
     }
 
@@ -70,7 +72,7 @@ public class NewMessageActivity extends Activity implements NewMessageView {
         if (requestCode == 1) {
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
-                et_number.setText(data.getStringExtra("number"));
+                et_number.setText(data.getStringExtra(EXTRA_RESULT_NUMBER));
             }
         }
     }
