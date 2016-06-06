@@ -76,7 +76,7 @@ public class ContactsActivity extends Activity implements ContactsView {
         return super.onOptionsItemSelected(item);
     }
 
-    public void alertDialogAdd(ReceiverUserModel model) {
+    public void alertDialogAdd(final ReceiverUserModel model) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = getLayoutInflater();
@@ -98,13 +98,17 @@ public class ContactsActivity extends Activity implements ContactsView {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 ReceiverUserModel receiver = new ReceiverUserModel();
-
+                                receiver.setId(model != null ? model.getId() : null);
                                 receiver.setName(mDialogNick.getText().toString());
                                 receiver.setNumber(mDialogNumber
                                         .getText().toString());
                                 receiver.setPassword(mDialogPassword.getText().toString());
 
-                                mPresenter.saveContact(receiver);
+                                if (model != null) {
+                                    mPresenter.updateContact(receiver);
+                                } else {
+                                    mPresenter.saveContact(receiver);
+                                }
                             }
                         })
                 .setNegativeButton(R.string.cancel,

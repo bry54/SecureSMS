@@ -64,6 +64,8 @@ public class ContactsCursorAdapter extends SimpleCursorAdapter {
             @Override
             public void onClick(View v) {
                 // Get the state's capital from this row in the database.
+                int id = cursor.getInt(cursor
+                        .getColumnIndexOrThrow(DbAdapter.REC_ID));
                 String number = cursor.getString(cursor
                         .getColumnIndexOrThrow(DbAdapter.REC_NUMBER));
                 String nick = cursor.getString(cursor
@@ -71,6 +73,7 @@ public class ContactsCursorAdapter extends SimpleCursorAdapter {
                 String password = cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.REC_CODE));
 
                 ReceiverUserModel receiverUserModel = new ReceiverUserModel();
+                receiverUserModel.setId(id);
                 receiverUserModel.setNumber(number);
                 receiverUserModel.setName(nick);
                 receiverUserModel.setPassword(password);
