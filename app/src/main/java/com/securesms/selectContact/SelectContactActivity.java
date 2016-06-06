@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 import com.securesms.chat.presenter.ChatPresenterImpl;
 import com.securesms.chat.presenter.interfaces.ChatPresenter;
@@ -22,8 +23,9 @@ import com.securesms.selectContact.view.interfaces.SelectContactView;
 /**
  * Created by Sebastian Sokolowski on 2015-07-06.
  */
-public class SelectReceiverActivity extends Activity implements SelectContactView{
+public class SelectContactActivity extends Activity implements SelectContactView {
     private ListView mListContact;
+    private TextView mEmpty;
 
     private final SelectContactPresenter mPresenter = new SelectContactPresenterImpl();
 
@@ -34,6 +36,7 @@ public class SelectReceiverActivity extends Activity implements SelectContactVie
         setContentView(R.layout.select_receiver_list_view);
 
         mListContact = (ListView) findViewById(R.id.list_contacts);
+        mEmpty = (TextView) findViewById(R.id.empty);
         mListContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -82,5 +85,10 @@ public class SelectReceiverActivity extends Activity implements SelectContactVie
         SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(this, R.layout.select_receiver_list_view_item,
                 cursor, columns, to, 0);
         mListContact.setAdapter(dataAdapter);
+        if (dataAdapter.getCount() > 0) {
+            mEmpty.setVisibility(View.GONE);
+        } else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
     }
 }

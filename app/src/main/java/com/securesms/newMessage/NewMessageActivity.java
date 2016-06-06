@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.securesms.R;
-import com.securesms.selectContact.SelectReceiverActivity;
+import com.securesms.selectContact.SelectContactActivity;
 import com.securesms.newMessage.model.NewMessageModel;
 import com.securesms.newMessage.presenter.NewMessagePresenterImpl;
 import com.securesms.newMessage.presenter.interfaces.NewMessagePresenter;
@@ -48,7 +48,7 @@ public class NewMessageActivity extends Activity implements NewMessageView {
     }
 
     public void selectReceive(View v) {
-        Intent intent = new Intent(getApplicationContext(), SelectReceiverActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SelectContactActivity.class);
         startActivityForResult(intent, 1);
     }
 

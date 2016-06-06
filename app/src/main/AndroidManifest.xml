@@ -31,7 +31,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main.MainActivity" />
         </activity>
-        <activity android:name=".selectContact.SelectReceiverActivity">
+        <activity android:name=".selectContact.SelectContactActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".newMessage.NewMessageActivity" />
