@@ -94,7 +94,7 @@ public class ChatActivity extends Activity implements ChatView {
         switch (item.getItemId()) {
             case R.id.remove_message:
                 MessageModel messageModel = new MessageModel();
-                messageModel.id = info.id;
+                messageModel.setId(info.id);
                 mPresenter.removeMessage(messageModel);
                 return true;
             default:

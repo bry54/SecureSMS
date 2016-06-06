@@ -88,12 +88,12 @@ public class AlgorithmAES {
 
             //zapisanie wiadomosci do bazy danych
             MessageModel tmp = new MessageModel();
-            tmp.text = message;
-            tmp.rec = 1;
+            tmp.setText(message);
+            tmp.setRec(1);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            tmp.date = sdf.format(new Date());
-            tmp.id_receivers = receiver_item.getId();
-            tmp.read = 0;
+            tmp.setDate(sdf.format(new Date()));
+            tmp.setId_receivers(receiver_item.getId());
+            tmp.setRead(0);
             dbAdapter.createRowMessage(tmp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,25 +104,24 @@ public class AlgorithmAES {
     }
 
     public String receive_message(ReceiverUserModel receiverUserModel, String message, Context context) {
-
         MessageModel tmp = new MessageModel();
         try {
             this.setPassword(receiverUserModel.getPassword());
-            tmp.rec = 0;
+            tmp.setRec(0);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            tmp.date = sdf.format(new Date());
-            tmp.id_receivers = receiverUserModel.getId();
-            tmp.read = 1;
-            tmp.text = this.decrypt(message);
+            tmp.setDate(sdf.format(new Date()));
+            tmp.setId_receivers(receiverUserModel.getId());
+            tmp.setRead(1);
+            tmp.setText(this.decrypt(message));
         } catch (Exception e) {
-            tmp.text = context.getString(R.string.error_desc_sms);
+            tmp.setText(context.getString(R.string.error_desc_sms));
             e.printStackTrace();
         } finally {
             dbAdapter.open();
             dbAdapter.createRowMessage(tmp);
             dbAdapter.close();
         }
-        return tmp.text;
+        return tmp.getText();
     }
 
 }
