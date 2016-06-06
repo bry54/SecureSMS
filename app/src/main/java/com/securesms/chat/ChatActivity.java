@@ -14,14 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.securesms.main.MainActivity;
 import com.securesms.R;
-import com.securesms.chat.view.adapter.ChatCursorAdapter;
-import com.securesms.chat.model.User;
+import com.securesms.chat.model.MessageModel;
+import com.securesms.chat.model.UserModel;
 import com.securesms.chat.presenter.ChatPresenterImpl;
 import com.securesms.chat.presenter.interfaces.ChatPresenter;
+import com.securesms.chat.view.adapter.ChatCursorAdapter;
 import com.securesms.chat.view.interfaces.ChatView;
-import com.securesms.chat.model.MessageModel;
+import com.securesms.main.MainActivity;
 
 public class ChatActivity extends Activity implements ChatView {
     private ImageButton btn_send;
@@ -44,9 +44,9 @@ public class ChatActivity extends Activity implements ChatView {
 
 
         if (bundle != null) {
-            User user = (User) bundle.getSerializable(MainActivity.USER_EXTRA);
-            mPresenter.setUser(user);
-            getActionBar().setTitle(user.getNick() + "\n" + user.getNumber());
+            UserModel userModel = (UserModel) bundle.getSerializable(MainActivity.USER_EXTRA);
+            mPresenter.setUserModel(userModel);
+            getActionBar().setTitle(userModel.getNick() + "\n" + userModel.getNumber());
 
             mPresenter.checkMessagesRead();
         }

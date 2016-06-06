@@ -28,12 +28,12 @@ public class MainPresenterImpl implements MainPresenter {
         this.view = null;
     }
 
-    private void getAllContacts(){
+    private void getAllContacts() {
         dbAdapter.open();
         Cursor cursor = dbAdapter.readListMainMessages();
         dbAdapter.close();
 
-        if(view != null){
+        if (view != null) {
             view.setContacts(cursor);
         }
     }

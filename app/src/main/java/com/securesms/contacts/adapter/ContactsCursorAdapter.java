@@ -9,10 +9,10 @@ import android.widget.ImageButton;
 import android.widget.SimpleCursorAdapter;
 
 import com.securesms.R;
+import com.securesms.contacts.model.ReceiverUserModel;
 import com.securesms.contacts.presenter.interfaces.ContactsPresenter;
 import com.securesms.contacts.view.interfaces.ContactsView;
 import com.securesms.database.DbAdapter;
-import com.securesms.contacts.model.ReceiverUserModel;
 
 /**
  * Created by admin on 2016-06-05.

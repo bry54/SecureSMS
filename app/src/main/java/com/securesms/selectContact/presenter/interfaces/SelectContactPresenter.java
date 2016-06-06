@@ -7,5 +7,6 @@ import com.securesms.selectContact.view.interfaces.SelectContactView;
  */
 public interface SelectContactPresenter {
     void takeView(SelectContactView view);
+
     void releaseView();
 }

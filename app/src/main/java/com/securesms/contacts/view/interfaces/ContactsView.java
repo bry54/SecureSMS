@@ -9,7 +9,10 @@ import com.securesms.contacts.model.ReceiverUserModel;
  */
 public interface ContactsView {
     void setContacts(Cursor cursor);
+
     void successfulAddContact();
+
     void failAddContact(String error);
+
     void showAlertView(ReceiverUserModel model);
 }

@@ -4,15 +4,15 @@ import android.content.Context;
 import android.telephony.SmsManager;
 import android.util.Base64;
 
+import com.securesms.R;
+import com.securesms.chat.model.MessageModel;
+import com.securesms.contacts.model.ReceiverUserModel;
+import com.securesms.database.DbAdapter;
+
 import java.security.MessageDigest;
 import java.security.spec.AlgorithmParameterSpec;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import com.securesms.R;
-import com.securesms.database.DbAdapter;
-import com.securesms.chat.model.MessageModel;
-import com.securesms.contacts.model.ReceiverUserModel;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;

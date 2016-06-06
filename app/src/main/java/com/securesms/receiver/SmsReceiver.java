@@ -13,14 +13,13 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.telephony.SmsMessage;
 
-
-import com.securesms.chat.model.User;
-import com.securesms.utils.AlgorithmAES;
-import com.securesms.database.DbAdapter;
-import com.securesms.main.MainActivity;
 import com.securesms.R;
 import com.securesms.chat.ChatActivity;
+import com.securesms.chat.model.UserModel;
 import com.securesms.contacts.model.ReceiverUserModel;
+import com.securesms.database.DbAdapter;
+import com.securesms.main.MainActivity;
+import com.securesms.utils.AlgorithmAES;
 
 public class SmsReceiver extends BroadcastReceiver {
     private final AlgorithmAES algorithmAES = AlgorithmAES.INSTANCE;
@@ -106,8 +105,8 @@ public class SmsReceiver extends BroadcastReceiver {
 
         Intent resultIntent = new Intent(context, ChatActivity.class);
 
-        User user = new User(recId, nick, number);
-        resultIntent.putExtra(MainActivity.USER_EXTRA, user);
+        UserModel userModel = new UserModel(recId, nick, number);
+        resultIntent.putExtra(MainActivity.USER_EXTRA, userModel);
 
 // The stack builder object will contain an artificial back stack for the
 // started Activity.

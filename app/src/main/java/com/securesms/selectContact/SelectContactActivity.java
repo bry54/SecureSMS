@@ -1,7 +1,6 @@
 package com.securesms.selectContact;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,10 +11,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.securesms.chat.presenter.ChatPresenterImpl;
-import com.securesms.chat.presenter.interfaces.ChatPresenter;
-import com.securesms.database.DbAdapter;
 import com.securesms.R;
+import com.securesms.database.DbAdapter;
 import com.securesms.selectContact.presenter.SelectContactPresenterImpl;
 import com.securesms.selectContact.presenter.interfaces.SelectContactPresenter;
 import com.securesms.selectContact.view.interfaces.SelectContactView;

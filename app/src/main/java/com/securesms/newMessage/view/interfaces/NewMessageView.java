@@ -5,6 +5,8 @@ package com.securesms.newMessage.view.interfaces;
  */
 public interface NewMessageView {
     void successfulSendMessage();
+
     void failSendMessage();
+
     void noPhoneNumber();
 }

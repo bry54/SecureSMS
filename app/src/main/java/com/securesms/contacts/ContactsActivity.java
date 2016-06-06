@@ -20,11 +20,11 @@ import android.widget.Toast;
 import com.securesms.R;
 import com.securesms.contacts.adapter.ContactsCursorAdapter;
 import com.securesms.contacts.model.ContactModel;
+import com.securesms.contacts.model.ReceiverUserModel;
 import com.securesms.contacts.presenter.ContactsPresenterImpl;
 import com.securesms.contacts.presenter.interfaces.ContactsPresenter;
 import com.securesms.contacts.view.interfaces.ContactsView;
 import com.securesms.database.DbAdapter;
-import com.securesms.contacts.model.ReceiverUserModel;
 
 public class ContactsActivity extends Activity implements ContactsView {
     private ListView mListView;

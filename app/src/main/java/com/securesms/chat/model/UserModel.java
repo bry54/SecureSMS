@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by admin on 2016-06-01.
  */
-public class User implements Serializable{
+public class UserModel implements Serializable {
     private int recId;
     private String nick;
     private String number;
 
-    public User(int recId, String nick, String number) {
+    public UserModel(int recId, String nick, String number) {
         this.recId = recId;
         this.nick = nick;
         this.number = number;

@@ -1,7 +1,7 @@
 package com.securesms.chat.presenter.interfaces;
 
 import com.securesms.chat.model.MessageModel;
-import com.securesms.chat.model.User;
+import com.securesms.chat.model.UserModel;
 import com.securesms.chat.view.interfaces.ChatView;
 
 /**
@@ -9,9 +9,14 @@ import com.securesms.chat.view.interfaces.ChatView;
  */
 public interface ChatPresenter {
     void takeView(ChatView view);
+
     void releaseView();
-    void setUser(User user);
+
+    void setUserModel(UserModel userModel);
+
     void checkMessagesRead();
+
     void sendMessage(String message);
+
     void removeMessage(MessageModel id);
 }

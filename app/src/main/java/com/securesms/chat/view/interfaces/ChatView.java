@@ -7,6 +7,8 @@ import android.database.Cursor;
  */
 public interface ChatView {
     void successfulSendMessage();
+
     void failSendMessage();
+
     void setMessages(Cursor cursor);
 }

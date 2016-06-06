@@ -11,16 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.securesms.newMessage.NewMessageActivity;
 import com.securesms.R;
-import com.securesms.settings.SettingsActivity;
 import com.securesms.chat.ChatActivity;
-import com.securesms.chat.model.User;
+import com.securesms.chat.model.UserModel;
 import com.securesms.contacts.ContactsActivity;
-import com.securesms.main.view.adapter.MainCursorAdapter;
 import com.securesms.main.presenter.MainPresenterImpl;
 import com.securesms.main.presenter.interfaces.MainPresenter;
+import com.securesms.main.view.adapter.MainCursorAdapter;
 import com.securesms.main.view.interfaces.MainView;
+import com.securesms.newMessage.NewMessageActivity;
+import com.securesms.settings.SettingsActivity;
 
 
 public class MainActivity extends Activity implements MainView {
@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements MainView {
                         .getColumnIndexOrThrow("rec_number"));
 
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                User user = new User(recId, nick, number);
-                intent.putExtra(USER_EXTRA, user);
+                UserModel userModel = new UserModel(recId, nick, number);
+                intent.putExtra(USER_EXTRA, userModel);
                 startActivity(intent);
             }
         });
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements MainView {
         mListView.setAdapter(dataAdapter);
         if (dataAdapter.getCount() > 0) {
             mEmpty.setVisibility(View.GONE);
-        }else{
+        } else {
             mEmpty.setVisibility(View.VISIBLE);
         }
     }

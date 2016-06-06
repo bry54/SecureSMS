@@ -10,11 +10,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.securesms.R;
-import com.securesms.selectContact.SelectContactActivity;
 import com.securesms.newMessage.model.NewMessageModel;
 import com.securesms.newMessage.presenter.NewMessagePresenterImpl;
 import com.securesms.newMessage.presenter.interfaces.NewMessagePresenter;
 import com.securesms.newMessage.view.interfaces.NewMessageView;
+import com.securesms.selectContact.SelectContactActivity;
 
 public class NewMessageActivity extends Activity implements NewMessageView {
     private ImageButton btn_send;

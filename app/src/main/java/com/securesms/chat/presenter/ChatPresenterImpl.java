@@ -3,7 +3,7 @@ package com.securesms.chat.presenter;
 import android.database.Cursor;
 
 import com.securesms.chat.model.MessageModel;
-import com.securesms.chat.model.User;
+import com.securesms.chat.model.UserModel;
 import com.securesms.chat.presenter.interfaces.ChatPresenter;
 import com.securesms.chat.view.interfaces.ChatView;
 import com.securesms.database.DbAdapter;
@@ -12,9 +12,9 @@ import com.securesms.utils.AlgorithmAES;
 /**
  * Created by admin on 2016-06-01.
  */
-public class ChatPresenterImpl implements ChatPresenter{
+public class ChatPresenterImpl implements ChatPresenter {
     private ChatView view;
-    private User user;
+    private UserModel userModel;
 
     private final AlgorithmAES algorithmAES = AlgorithmAES.INSTANCE;
     private final DbAdapter dbAdapter = DbAdapter.INSTANCE;
@@ -33,22 +33,21 @@ public class ChatPresenterImpl implements ChatPresenter{
         this.view = null;
     }
 
-    @Override
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 
     @Override
     public void checkMessagesRead() {
         dbAdapter.open();
-        dbAdapter.setReadMessages(user.getRecId());
+        dbAdapter.setReadMessages(userModel.getRecId());
         dbAdapter.close();
     }
 
     @Override
     public void sendMessage(String message) {
-        algorithmAES.send_message(user.getNumber(), message);
-        if(view != null) {
+        algorithmAES.send_message(userModel.getNumber(), message);
+        if (view != null) {
             view.successfulSendMessage();
         }
 
@@ -66,12 +65,12 @@ public class ChatPresenterImpl implements ChatPresenter{
         getAllMessages();
     }
 
-    private void getAllMessages(){
+    private void getAllMessages() {
         dbAdapter.open();
-        Cursor cursor = dbAdapter.searchRowMessageRec(user.getRecId());
+        Cursor cursor = dbAdapter.searchRowMessageRec(userModel.getRecId());
         dbAdapter.close();
 
-        if(view != null) {
+        if (view != null) {
             view.setMessages(cursor);
         }
     }

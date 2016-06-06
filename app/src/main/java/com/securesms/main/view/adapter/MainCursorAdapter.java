@@ -9,8 +9,8 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.securesms.database.DbAdapter;
 import com.securesms.R;
+import com.securesms.database.DbAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,9 +38,9 @@ public class MainCursorAdapter extends CursorAdapter {
         ImageView image = (ImageView) view.findViewById(R.id.iv_is_read);
 
         int receiverId = cursor.getInt(cursor.getColumnIndexOrThrow(DbAdapter.MES_REC_ID));
-        String data=cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.MES_DATE));
+        String data = cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.MES_DATE));
         try {
-            data=parseDate(data);
+            data = parseDate(data);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -54,15 +54,14 @@ public class MainCursorAdapter extends CursorAdapter {
 
         //ustawianie zdjecia wiadomosci (czy odebrana czy nie)
 
-        if(!isRead)
-        {
+        if (!isRead) {
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_unread));
         }
 
         //ustawianie pol
         tv_name.setText(cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.REC_NAME)));
         tv_date.setText(data);
-        tv_count.setText("("+count+")");
+        tv_count.setText("(" + count + ")");
         tv_lastMessage.setText(cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.MES_TEXT)));
 
 
@@ -72,6 +71,7 @@ public class MainCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         return mInflater.inflate(R.layout.main_list_view_item, parent, false);
     }
+
     public String parseDate(String date) throws ParseException {
         String result = "";
 

@@ -8,6 +8,8 @@ import com.securesms.newMessage.view.interfaces.NewMessageView;
  */
 public interface NewMessagePresenter {
     void takeView(NewMessageView view);
+
     void releaseView();
+
     void sentMessage(NewMessageModel newMessageModel);
 }

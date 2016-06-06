@@ -7,5 +7,6 @@ import com.securesms.main.view.interfaces.MainView;
  */
 public interface MainPresenter {
     void takeView(MainView view);
+
     void releaseView();
 }

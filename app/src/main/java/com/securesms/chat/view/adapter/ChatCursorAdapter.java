@@ -12,8 +12,8 @@ import android.widget.CursorAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.securesms.database.DbAdapter;
 import com.securesms.R;
+import com.securesms.database.DbAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -76,18 +76,16 @@ public class ChatCursorAdapter extends CursorAdapter {
             tv_message.setLayoutParams(params);
         }
         //ukrycie pola daty gdy wiadomosc zostala teraz wyslana
-        if(date.equals(""))
-        {
+        if (date.equals("")) {
             tv_date.setVisibility(View.GONE);
         }
 
         //ustawienie wielkosci czcionki
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int fontSize = Integer.parseInt(prefs.getString("font_size", "1"));
-        if(fontSize==2)
-        {
-            tv_date.setTextAppearance(context,android.R.style.TextAppearance_Medium);
-            tv_message.setTextAppearance(context,android.R.style.TextAppearance_Large);
+        if (fontSize == 2) {
+            tv_date.setTextAppearance(context, android.R.style.TextAppearance_Medium);
+            tv_message.setTextAppearance(context, android.R.style.TextAppearance_Large);
 
         }
     }
@@ -111,7 +109,7 @@ public class ChatCursorAdapter extends CursorAdapter {
 
         //ten sam dzien
         int ileTemu = now.getMinutes() - tmp.getMinutes();
-        if (sdf4.format(tmp).equals(sdf4.format(now)) && ileTemu <= 10 && ileTemu!=0) {
+        if (sdf4.format(tmp).equals(sdf4.format(now)) && ileTemu <= 10 && ileTemu != 0) {
             //mniej niz 10 minut
             wynik = ileTemu + " min temu";
         } else if (sdf3.format(tmp).equals(sdf3.format(now))) {
