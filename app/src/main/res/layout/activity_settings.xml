@@ -8,14 +8,14 @@
         android:title="@string/notyfications">
 
         <CheckBoxPreference
-            android:id="@+id/showNotyfications"
+            android:id="@+id/showNotifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/button"
             android:layout_margin="10dp"
             android:defaultValue="true"
-            android:key="showNotyfications"
+            android:key="showNotifications"
             android:title="@string/enable_notifications" />
 
         <CheckBoxPreference
@@ -26,35 +26,37 @@
             android:layout_below="@+id/button"
             android:layout_margin="10dp"
             android:defaultValue="true"
-            android:dependency="showNotyfications"
+            android:dependency="showNotifications"
             android:key="showMessage"
             android:summary="@string/show_message_notifications" />
+
         <CheckBoxPreference
-            android:title="@string/vibration"
             android:defaultValue="false"
             android:key="cbp_vibration"
-            />
+            android:title="@string/vibration" />
+
         <CheckBoxPreference
-            android:title="@string/sound"
             android:defaultValue="false"
             android:key="cbp_sound"
-            />
+            android:title="@string/sound" />
+
         <RingtonePreference
             android:dependency="cbp_sound"
-            android:title="@string/select_sound"
             android:key="rp_ringtone"
             android:ringtoneType="all"
-            />
+            android:title="@string/select_sound" />
     </PreferenceCategory>
+
     <PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="@string/appearance">
+
         <ListPreference
-            android:key="font_size"
-            android:title="@string/font_size"
-            android:entries="@array/font_size"
             android:defaultValue="1"
-            android:entryValues="@array/font_size_values" />
-        </PreferenceCategory>
+            android:entries="@array/font_size"
+            android:entryValues="@array/font_size_values"
+            android:key="font_size"
+            android:title="@string/font_size" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
