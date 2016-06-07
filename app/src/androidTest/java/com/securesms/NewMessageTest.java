@@ -34,8 +34,6 @@ public class NewMessageTest extends ActivityInstrumentationTestCase2<NewMessageA
     public void testNewMessage() throws Exception {
         //Unlock the lock screen
         solo.unlockScreen();
-        //Click on action menu contacts
-        solo.clickOnView(solo.getView(com.securesms.R.id.action_new_message));
         //Assert that NoteEditor activity is opened
         solo.assertCurrentActivity("Expected NewMessageActivity", NewMessageActivity.class);
     }

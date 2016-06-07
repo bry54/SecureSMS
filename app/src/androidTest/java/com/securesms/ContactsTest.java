@@ -7,7 +7,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.robotium.solo.Solo;
-import com.securesms.R;
 import com.securesms.contacts.ContactsActivity;
 
 /**

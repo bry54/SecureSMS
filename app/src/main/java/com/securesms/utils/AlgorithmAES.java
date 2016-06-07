@@ -93,7 +93,7 @@ public class AlgorithmAES {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             tmp.setDate(sdf.format(new Date()));
             tmp.setId_receivers(receiver_item.getId());
-            tmp.setRead(0);
+            tmp.setRead(true);
             dbAdapter.createRowMessage(tmp);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,7 +111,7 @@ public class AlgorithmAES {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             tmp.setDate(sdf.format(new Date()));
             tmp.setId_receivers(receiverUserModel.getId());
-            tmp.setRead(1);
+            tmp.setRead(false);
             tmp.setText(this.decrypt(message));
         } catch (Exception e) {
             tmp.setText(context.getString(R.string.error_desc_sms));
