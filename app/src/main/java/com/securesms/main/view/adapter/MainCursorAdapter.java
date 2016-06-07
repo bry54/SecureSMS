@@ -47,14 +47,14 @@ public class MainCursorAdapter extends CursorAdapter {
         //pobieranie danych z bazy danych
 
         dbAdapter.open();
-        boolean isRead = dbAdapter.isReadMessageReceiver(receiverId);
+        boolean isNotRead = dbAdapter.isNotReadMessage(receiverId);
         int count = dbAdapter.getCountMessageReceiver(receiverId);
         //String lastMessage = dbHelper.get
         dbAdapter.close();
 
         //ustawianie zdjecia wiadomosci (czy odebrana czy nie)
 
-        if (!isRead) {
+        if (isNotRead) {
             image.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_action_unread));
         }
 

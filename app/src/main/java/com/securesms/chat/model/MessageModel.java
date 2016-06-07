@@ -6,7 +6,7 @@ public class MessageModel {
     private String date;
     private String text;
     private int rec;
-    private int read;
+    private boolean read;
 
     public MessageModel() {
     }
@@ -57,11 +57,19 @@ public class MessageModel {
         this.rec = rec;
     }
 
-    public int getRead() {
+    public boolean getReadBoolean() {
         return read;
+    }
+    public int getReadInt() {
+        int result = (read == true ? 0 : 1);
+        return result;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 
     public void setRead(int read) {
-        this.read = read;
+        this.read = (read == 0 ? true : false);
     }
 }

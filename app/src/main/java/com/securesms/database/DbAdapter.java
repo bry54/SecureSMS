@@ -72,17 +72,19 @@ public class DbAdapter {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
-        @Override
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_RECEIVERS_CREATE);
             db.execSQL(DATABASE_MESSAGES_CREATE);
         }
 
-        @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE_RECEIVERS);
             db.execSQL("DROP TABLE IF EXISTS " + SQLITE_TABLE_MESSAGES);
             onCreate(db);
+        }
+
+        public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            onUpgrade(db, oldVersion, newVersion);
         }
     }
 
@@ -110,11 +112,6 @@ public class DbAdapter {
         }
     }
 
-
-    public void upgrade(int version) {
-        dbHelper.onUpgrade(db, DATABASE_VERSION, version);
-    }
-
     public long createRowReceiver(ReceiverUserModel t) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(REC_NAME, t.getName());
@@ -137,21 +134,6 @@ public class DbAdapter {
                 new String[]{t.getId() + ""});
     }
 
-    public ReceiverUserModel searchRowReceiverId(String id) {
-        ReceiverUserModel result = null;
-        String[] allColumns = new String[]{REC_ID, REC_NAME,
-                REC_NUMBER, REC_CODE};
-        Cursor c = db.query(SQLITE_TABLE_RECEIVERS, allColumns, REC_ID + "= ?",
-                new String[]{id}, null, null, null);
-        if (c != null && c.moveToFirst()) {
-            result = new ReceiverUserModel(c.getInt(0), c.getString(1), c.getString(2),
-                    c.getString(3));
-            c.close();
-        }
-
-        return result;
-    }
-
     public ReceiverUserModel searchRowReceiverNumber(String number) {
         ReceiverUserModel result = null;
         String[] allColumns = new String[]{REC_ID, REC_NAME,
@@ -167,14 +149,14 @@ public class DbAdapter {
         return result;
     }
 
-    public boolean isReadMessageReceiver(int id) {
-        boolean result = true;
+    public boolean isNotReadMessage(int id) {
+        boolean result = false;
         String[] allColumns = new String[]{MES_REC_ID, MES_READ};
         Cursor c = db.query(SQLITE_TABLE_MESSAGES, allColumns, MES_REC_ID + " = ? AND " + MES_READ + " = ?",
                 new String[]{id + "", 1 + ""}, null, null, null);
         if (c != null && c.moveToFirst()) {
             if (c.getCount() != 0) {
-                result = false;
+                result = true;
             }
             c.close();
         }
@@ -199,7 +181,7 @@ public class DbAdapter {
         initialValues.put(MES_DATE, t.getDate());
         initialValues.put(MES_TEXT, t.getText());
         initialValues.put(MES_REC, t.getRec());
-        initialValues.put(MES_READ, t.getRead());
+        initialValues.put(MES_READ, t.getReadInt());
         return db.insert(SQLITE_TABLE_MESSAGES, null, initialValues);
     }
 
@@ -266,16 +248,4 @@ public class DbAdapter {
         }
         return c;
     }
-
-    public Cursor readListSelectMessages() {
-        String[] allColumns = new String[]{MES_REC_ID, MES_DATE, MES_TEXT};
-        Cursor c = db.query(SQLITE_TABLE_MESSAGES, allColumns, null, null, MES_REC_ID,
-                null, MES_DATE);
-        if (c != null) {
-            c.moveToFirst();
-        }
-        return c;
-    }
-
-
 }
