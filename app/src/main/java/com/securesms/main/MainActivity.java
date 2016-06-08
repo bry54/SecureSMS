@@ -15,16 +15,17 @@ import com.securesms.R;
 import com.securesms.chat.ChatActivity;
 import com.securesms.chat.model.UserModel;
 import com.securesms.contacts.ContactsActivity;
+import com.securesms.database.DbAdapter;
 import com.securesms.main.presenter.MainPresenterImpl;
 import com.securesms.main.presenter.interfaces.MainPresenter;
 import com.securesms.main.view.adapter.MainCursorAdapter;
 import com.securesms.main.view.interfaces.MainView;
-import com.securesms.newMessage.NewMessageActivity;
 import com.securesms.settings.SettingsActivity;
 
 
 public class MainActivity extends Activity implements MainView {
     public static String USER_EXTRA = "USER_EXTRA";
+    public static String USER_SELECT = "USER_SELECT";
     public static int mId = 1921;
 
     private ListView mListView;
@@ -46,11 +47,11 @@ public class MainActivity extends Activity implements MainView {
 
                 // Get the state's capital from this row in the database.
                 int recId = cursor.getInt(cursor
-                        .getColumnIndexOrThrow("mes_rec_id"));
+                        .getColumnIndexOrThrow(DbAdapter.MES_REC_ID));
                 String nick = cursor.getString(cursor
-                        .getColumnIndexOrThrow("rec_name"));
+                        .getColumnIndexOrThrow(DbAdapter.REC_NAME));
                 String number = cursor.getString(cursor
-                        .getColumnIndexOrThrow("rec_number"));
+                        .getColumnIndexOrThrow(DbAdapter.REC_NUMBER));
 
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 UserModel userModel = new UserModel(recId, nick, number);
@@ -95,7 +96,8 @@ public class MainActivity extends Activity implements MainView {
 
         }
         if (id == R.id.action_new_message) {
-            Intent intent = new Intent(getApplicationContext(), NewMessageActivity.class);
+            Intent intent = new Intent(getApplicationContext(), ContactsActivity.class);
+            intent.putExtra(USER_SELECT,true);
             startActivity(intent);
 
         }

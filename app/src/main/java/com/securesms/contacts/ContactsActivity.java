@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.NavUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -20,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.securesms.R;
+import com.securesms.chat.ChatActivity;
+import com.securesms.chat.model.UserModel;
 import com.securesms.contacts.adapter.ContactsCursorAdapter;
 import com.securesms.contacts.model.ContactModel;
 import com.securesms.contacts.model.ReceiverUserModel;
@@ -28,7 +29,6 @@ import com.securesms.contacts.presenter.interfaces.ContactsPresenter;
 import com.securesms.contacts.view.interfaces.ContactsView;
 import com.securesms.database.DbAdapter;
 import com.securesms.main.MainActivity;
-import com.securesms.newMessage.NewMessageActivity;
 
 public class ContactsActivity extends Activity implements ContactsView {
     private ListView mListView;
@@ -58,17 +58,21 @@ public class ContactsActivity extends Activity implements ContactsView {
             }
         });
 
-        mResultNumber = getIntent().getBooleanExtra(NewMessageActivity.EXTRA_RESULT_NUMBER, false);
+        mResultNumber = getIntent().getBooleanExtra(MainActivity.USER_SELECT, false);
         if (mResultNumber) {
             mButtonAdd.setVisibility(View.GONE);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Cursor cursor = (Cursor) mListView.getItemAtPosition(i);
+                    int recId= cursor.getInt(cursor.getColumnIndexOrThrow(DbAdapter.REC_ID));
+                    String nick = cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.REC_NAME));
                     String number = cursor.getString(cursor.getColumnIndexOrThrow(DbAdapter.REC_NUMBER));
-                    Intent returnIntent = new Intent();
-                    returnIntent.putExtra(NewMessageActivity.EXTRA_RESULT_NUMBER, number);
-                    setResult(RESULT_OK, returnIntent);
+                    UserModel userModel = new UserModel(recId,nick,number);
+
+                    Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                    intent.putExtra(MainActivity.USER_EXTRA, userModel);
+                    startActivity(intent);
                     finish();
                 }
             });
@@ -92,11 +96,7 @@ public class ContactsActivity extends Activity implements ContactsView {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                if(mResultNumber){
-                    onBackPressed();
-                }else{
                     NavUtils.navigateUpFromSameTask(this);
-                }
                 return true;
         }
         return super.onOptionsItemSelected(item);
