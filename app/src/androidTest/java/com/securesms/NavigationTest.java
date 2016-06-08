@@ -5,7 +5,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.robotium.solo.Solo;
 import com.securesms.contacts.ContactsActivity;
 import com.securesms.main.MainActivity;
-import com.securesms.newMessage.NewMessageActivity;
 import com.securesms.settings.SettingsActivity;
 
 /**
@@ -73,7 +72,7 @@ public class NavigationTest extends ActivityInstrumentationTestCase2<MainActivit
         //Restart activity
         getInstrumentation().callActivityOnRestart(solo.getCurrentActivity());
         //Assert that NewMessageActivity is opened
-        solo.assertCurrentActivity("Expected NewMessageActivity", NewMessageActivity.class);
+        solo.assertCurrentActivity("Expected NewMessageActivity", ContactsActivity.class);
         //Click home button
         solo.clickOnActionBarHomeButton();
         //Assert that MainActivity is opened

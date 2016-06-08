@@ -65,6 +65,11 @@ public class ChatPresenterImpl implements ChatPresenter {
         getAllMessages();
     }
 
+    @Override
+    public void refreshMessages() {
+        getAllMessages();
+    }
+
     private void getAllMessages() {
         dbAdapter.open();
         Cursor cursor = dbAdapter.searchRowMessageRec(userModel.getRecId());

@@ -14,11 +14,11 @@ import com.securesms.contacts.ContactsActivity;
  */
 public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActivity> {
     private static final String CONTACT_NAME = "TEST_USER";
-    private static final String CONTACT_NUMBER = "530787034";
+    private static final String CONTACT_NUMBER = "500000000";
     private static final String CONTACT_PASSWORD = "HASLO";
 
     private static final String CONTACT_NAME2 = "TEST_USER2";
-    private static final String CONTACT_NUMBER2 = "530787035";
+    private static final String CONTACT_NUMBER2 = "500000001";
     private static final String CONTACT_PASSWORD2 = "HASLO2";
 
     private Solo solo;
@@ -118,7 +118,7 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
         assertEquals(null,findStringInView(CONTACT_NAME2, ListView));
     }
 
-    private View findStringInView(String text, ListView ListView) {
+    public static View findStringInView(String text, ListView ListView) {
         for (int i = 0; i != ListView.getChildCount(); i++) {
             View view = ListView.getChildAt(i);
             TextView tv = (TextView) view

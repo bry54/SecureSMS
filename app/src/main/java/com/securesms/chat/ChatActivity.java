@@ -19,9 +19,13 @@ import com.securesms.chat.model.MessageModel;
 import com.securesms.chat.model.UserModel;
 import com.securesms.chat.presenter.ChatPresenterImpl;
 import com.securesms.chat.presenter.interfaces.ChatPresenter;
+import com.securesms.chat.view.RefreshEvent;
 import com.securesms.chat.view.adapter.ChatCursorAdapter;
 import com.securesms.chat.view.interfaces.ChatView;
 import com.securesms.main.MainActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class ChatActivity extends Activity implements ChatView {
     private ImageButton btn_send;
@@ -56,13 +60,20 @@ public class ChatActivity extends Activity implements ChatView {
     protected void onResume() {
         super.onResume();
         mPresenter.takeView(this);
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mPresenter.releaseView();
+        EventBus.getDefault().unregister(this);
     }
+
+    @Subscribe
+    public void onEvent(RefreshEvent event) {
+        mPresenter.refreshMessages();
+    };
 
     @Override
     public boolean onOptionsItemSelected(android.view.MenuItem item) {

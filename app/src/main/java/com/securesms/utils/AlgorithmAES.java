@@ -6,8 +6,11 @@ import android.util.Base64;
 
 import com.securesms.R;
 import com.securesms.chat.model.MessageModel;
+import com.securesms.chat.view.RefreshEvent;
 import com.securesms.contacts.model.ReceiverUserModel;
 import com.securesms.database.DbAdapter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.security.MessageDigest;
 import java.security.spec.AlgorithmParameterSpec;
@@ -120,6 +123,7 @@ public class AlgorithmAES {
             dbAdapter.open();
             dbAdapter.createRowMessage(tmp);
             dbAdapter.close();
+            EventBus.getDefault().post(new RefreshEvent());
         }
         return tmp.getText();
     }
