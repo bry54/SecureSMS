@@ -32,6 +32,8 @@ public class ChatCursorAdapter extends CursorAdapter {
                 Context.LAYOUT_INFLATER_SERVICE);
     }
 
+
+
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView tv_message = (TextView) view.findViewById(R.id.message);

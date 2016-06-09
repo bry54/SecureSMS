@@ -92,28 +92,6 @@ public class ChatActivity extends Activity implements ChatView {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.chat_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.remove_message:
-                MessageModel messageModel = new MessageModel();
-                messageModel.setId(info.id);
-                mPresenter.removeMessage(messageModel);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    @Override
     public void successfulSendMessage() {
         et_message.setText("");
         Toast.makeText(this, this.getString(R.string.send_sms), Toast.LENGTH_LONG).show();

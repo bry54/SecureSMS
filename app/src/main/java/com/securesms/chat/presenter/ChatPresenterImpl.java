@@ -46,20 +46,14 @@ public class ChatPresenterImpl implements ChatPresenter {
 
     @Override
     public void sendMessage(String message) {
-        algorithmAES.send_message(userModel.getNumber(), message);
+        boolean success = algorithmAES.send_message(userModel.getNumber(), message);
         if (view != null) {
-            view.successfulSendMessage();
+            if (success) {
+                view.successfulSendMessage();
+            } else {
+                view.failSendMessage();
+            }
         }
-
-        //refresh view
-        getAllMessages();
-    }
-
-    @Override
-    public void removeMessage(MessageModel messageModel) {
-        dbAdapter.open();
-        dbAdapter.deleteRowMessage(messageModel);
-        dbAdapter.close();
 
         //refresh view
         getAllMessages();

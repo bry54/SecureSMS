@@ -58,6 +58,9 @@ public class ContactsPresenterImpl implements ContactsPresenter {
             dbAdapter.createRowReceiver(model);
             dbAdapter.close();
 
+            if(view != null){
+                view.successfulAddContact();
+            }
             displayListView();
         }
     }

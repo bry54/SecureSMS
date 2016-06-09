@@ -78,7 +78,7 @@ public class AlgorithmAES {
         return decryptedText;
     }
 
-    public void send_message(String number, String message) {
+    public boolean send_message(String number, String message) {
         dbAdapter.open();
         ReceiverUserModel receiver_item = dbAdapter.searchRowReceiverNumber(number);
 
@@ -87,7 +87,6 @@ public class AlgorithmAES {
 
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, "!encsms" + encrypt(message), null, null);
-            //Toast.makeText(context, context.getString(R.string.send_sms), Toast.LENGTH_LONG).show();
 
             //zapisanie wiadomosci do bazy danych
             MessageModel tmp = new MessageModel();
@@ -98,9 +97,10 @@ public class AlgorithmAES {
             tmp.setId_receivers(receiver_item.getId());
             tmp.setRead(true);
             dbAdapter.createRowMessage(tmp);
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            //Toast.makeText(context, context.getString(R.string.error_send_sms), Toast.LENGTH_LONG).show();
+            return false;
         } finally {
             dbAdapter.close();
         }

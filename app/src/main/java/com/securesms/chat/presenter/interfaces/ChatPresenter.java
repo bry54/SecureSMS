@@ -18,7 +18,5 @@ public interface ChatPresenter {
 
     void sendMessage(String message);
 
-    void removeMessage(MessageModel id);
-
     void refreshMessages();
 }
