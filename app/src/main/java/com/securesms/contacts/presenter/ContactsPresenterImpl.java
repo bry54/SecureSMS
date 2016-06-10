@@ -58,7 +58,7 @@ public class ContactsPresenterImpl implements ContactsPresenter {
             dbAdapter.createRowReceiver(model);
             dbAdapter.close();
 
-            if(view != null){
+            if (view != null) {
                 view.successfulAddContact();
             }
             displayListView();
@@ -88,16 +88,25 @@ public class ContactsPresenterImpl implements ContactsPresenter {
     }
 
     private boolean validateModel(ReceiverUserModel model) {
-        if (model.getName().length() == 0) {
-            view.failAddContact("Nieprawidłowa nazwa");
+        int length = model.getName().length();
+        if (length == 0 || length > 20) {
+            if (view != null) {
+                view.failAddContactInvalidUsername();
+            }
             return false;
         }
-        if (model.getPassword().length() == 0) {
-            view.failAddContact("Nieprawidłowy kod szyfrowania");
+        length = model.getNumber().length();
+        if (length <= 8 || length >= 11) {
+            if (view != null) {
+                view.failAddContactInvalidNumber();
+            }
             return false;
         }
-        if (model.getNumber().length() <= 8) {
-            view.failAddContact("Nieprawidłowy numer");
+        length = model.getPassword().length();
+        if (length == 0 || length > 20) {
+            if (view != null) {
+                view.failAddContactInvalidPassword();
+            }
             return false;
         }
         return true;

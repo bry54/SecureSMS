@@ -12,7 +12,11 @@ public interface ContactsView {
 
     void successfulAddContact();
 
-    void failAddContact(String error);
+    void failAddContactInvalidUsername();
+
+    void failAddContactInvalidPassword();
+
+    void failAddContactInvalidNumber();
 
     void showAlertView(ReceiverUserModel model);
 }

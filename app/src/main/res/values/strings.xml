@@ -36,4 +36,8 @@
     <string name="sound">Dźwięk</string>
     <string name="appearance">Wygląd</string>
     <string name="font_size">Wielkość czcionki</string>
+
+    <string name="add_contact_invalid_username">Nieprawidłowa nazwa</string>
+    <string name="add_contact_invalid_password">Nieprawidłowy kod szyfrowania</string>
+    <string name="add_contact_invalid_number">Nieprawidłowy numer</string>
 </resources>

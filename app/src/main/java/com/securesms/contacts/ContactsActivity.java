@@ -192,9 +192,23 @@ public class ContactsActivity extends Activity implements ContactsView {
     }
 
     @Override
-    public void failAddContact(String error) {
+    public void failAddContactInvalidUsername() {
         Toast.makeText(getApplicationContext(),
-                error, Toast.LENGTH_SHORT)
+                getString(R.string.add_contact_invalid_username), Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void failAddContactInvalidPassword() {
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.add_contact_invalid_password), Toast.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void failAddContactInvalidNumber() {
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.add_contact_invalid_number), Toast.LENGTH_SHORT)
                 .show();
     }
 
