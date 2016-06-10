@@ -15,7 +15,6 @@
     <string name="conf_remove_receiver">Czy na pewno chcesz usunąć kontakt?</string>
     <string name="error_send_sms">Błąd wysyłania, spróbuj ponownie później.</string>
     <string name="error_desc_sms">Bład odszyfrowania wiadomości. Sprawdz czy hasło się zgadza.</string>
-    <string name="added_receiver">Dodano kontakt</string>
     <string name="yes">Tak</string>
     <string name="cancel">Anuluj</string>
     <string name="no_messages">Brak wiadomości</string>
@@ -37,6 +36,7 @@
     <string name="appearance">Wygląd</string>
     <string name="font_size">Wielkość czcionki</string>
 
+    <string name="add_contact_successful">Dodano kontakt</string>
     <string name="add_contact_invalid_username">Nieprawidłowa nazwa</string>
     <string name="add_contact_invalid_password">Nieprawidłowy kod szyfrowania</string>
     <string name="add_contact_invalid_number">Nieprawidłowy numer</string>

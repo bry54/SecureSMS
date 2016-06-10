@@ -187,7 +187,7 @@ public class ContactsActivity extends Activity implements ContactsView {
     @Override
     public void successfulAddContact() {
         Toast.makeText(getApplicationContext(),
-                getString(R.string.added_receiver), Toast.LENGTH_SHORT)
+                getString(R.string.add_contact_successful), Toast.LENGTH_SHORT)
                 .show();
     }
 

@@ -102,19 +102,22 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
         //Click on cancel button
         solo.clickOnView(solo.getView(android.R.id.button2));
 
-        /*
-        Delete contact
-         */
+        //Delete contact
+        deleteContact(CONTACT_NAME2);
+
+        //Check if item still exist
         ListView = (ListView) solo.getView(R.id.list_contacts);
-        view = findStringInView(CONTACT_NAME2, ListView);
+        assertEquals(null, findStringInView(CONTACT_NAME2, ListView));
+    }
+
+    private void deleteContact(String contactName) throws Exception{
+        ListView listView= (ListView) solo.getView(R.id.list_contacts);
+        View view = findStringInView(contactName, listView);
         //Delete test contact
         ImageButton deleteButton = (ImageButton) view.findViewById(R.id.deleteReceiver);
         solo.clickOnView(deleteButton);
         //Click yes
         solo.clickOnView(solo.getView(android.R.id.button1));
-        //Check if item still exist
-        ListView = (ListView) solo.getView(R.id.list_contacts);
-        assertEquals(null, findStringInView(CONTACT_NAME2, ListView));
     }
 
     public void testAddInvalidNameContact() throws Exception{
@@ -134,6 +137,49 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
         //Check toast message
         assertTrue(solo.waitForText(solo.getString(R.string.add_contact_invalid_username)));
     }
+
+    public void testAddValidNameContact() throws Exception{
+        final String CONTACT_NAME = "1";
+        final String CONTACT_NUMBER = "500000000";
+        final String CONTACT_PASSWORD = "password";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
+    }
+
+    public void testAddValidNameContact2() throws Exception{
+        final String CONTACT_NAME = "12345678901234567890";
+        final String CONTACT_NUMBER = "500000000";
+        final String CONTACT_PASSWORD = "password";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
+    }
+
     public void testAddInvalidNameContact2() throws Exception{
         final String CONTACT_NAME = "123456789012345678901";
         final String CONTACT_NUMBER = "500000000";
@@ -154,7 +200,7 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
 
     public void testAddInvalidNumberContact() throws Exception{
         final String CONTACT_NAME = "user1212";
-        final String CONTACT_NUMBER = "1234567";
+        final String CONTACT_NUMBER = "12345678";
         final String CONTACT_PASSWORD = "password";
 
         solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
@@ -168,6 +214,46 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
         solo.clickOnView(solo.getView(android.R.id.button1));
         //Check toast message
         assertTrue(solo.waitForText(solo.getString(R.string.add_contact_invalid_number)));
+    }
+    public void testAddValidNumberContact() throws Exception{
+        final String CONTACT_NAME = "user1212";
+        final String CONTACT_NUMBER = "123456789";
+        final String CONTACT_PASSWORD = "password";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
+    }
+    public void testAddValidNumberContact2() throws Exception{
+        final String CONTACT_NAME = "user1212";
+        final String CONTACT_NUMBER = "1234567890";
+        final String CONTACT_PASSWORD = "password";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
     }
     public void testAddInvalidNumberContact2() throws Exception{
         final String CONTACT_NAME = "user1212";
@@ -203,6 +289,46 @@ public class ContactsTest extends ActivityInstrumentationTestCase2<ContactsActiv
         solo.clickOnView(solo.getView(android.R.id.button1));
         //Check toast message
         assertTrue(solo.waitForText(solo.getString(R.string.add_contact_invalid_password)));
+    }
+    public void testAddValidPasswordContact() throws Exception{
+        final String CONTACT_NAME = "user1212";
+        final String CONTACT_NUMBER = "500000000";
+        final String CONTACT_PASSWORD = "1";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
+    }
+    public void testAddValidPasswordContact2() throws Exception{
+        final String CONTACT_NAME = "user1212";
+        final String CONTACT_NUMBER = "500000000";
+        final String CONTACT_PASSWORD = "12345678901234567890";
+
+        solo.clickOnView(solo.getView(com.securesms.R.id.buttonReceiveAdd));
+        //In text field 0, enter contact name
+        solo.enterText(0, CONTACT_NAME);
+        //In text field 1, contact number
+        solo.enterText(1, CONTACT_NUMBER);
+        //In text field 2, contact password
+        solo.enterText(2, CONTACT_PASSWORD);
+        //Click add contact
+        solo.clickOnView(solo.getView(android.R.id.button1));
+        //Check toast message
+        assertTrue(solo.waitForText(solo.getString(R.string.add_contact_successful)));
+
+        //Delete contact
+        deleteContact(CONTACT_NAME);
     }
 
     public void testAddInvalidPasswordContact2() throws Exception{
